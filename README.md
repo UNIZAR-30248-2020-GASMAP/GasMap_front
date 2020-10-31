@@ -1,3 +1,3 @@
 # Comandos ejecutados:
 - expo init GasMap_front (Solo hacer una persona, sirve para crear la app)
-- 
+- expo install react-native-maps (instala las dependecias necesarias para usar Google Maps)
