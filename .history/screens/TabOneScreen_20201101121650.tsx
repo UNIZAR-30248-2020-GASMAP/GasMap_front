@@ -6,7 +6,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { Icon, Button } from 'react-native-elements';
 
-
+{/* <MapView style={styles.mapStyle}/> */ }
 
 
 
@@ -16,8 +16,13 @@ export default function TabOneScreen() {
     <View style={styles.container}>
       {/* <Text style={styles.title}>Tab One - Main Screen</Text> */}
       <View style={styles.map_section}>
-        <MapView style={styles.mapStyle}/>
+        <Text>Here goes the map</Text>
       </View>
+      {/* <View
+                style={styles.separator}
+                lightColor="#eee"
+                darkColor="rgba(255,255,255,1)"
+              /> */}
       <View style={styles.info_section}>
         <View style={styles.icon_main_container}>
           <View style={styles.icon_container}>
@@ -126,10 +131,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
   },
-
-  mapStyle: {
-    height: 500,
-  }
-
-  
 });

@@ -16,6 +16,7 @@ export default function TabOneScreen() {
     <View style={styles.container}>
       {/* <Text style={styles.title}>Tab One - Main Screen</Text> */}
       <View style={styles.map_section}>
+        <Text>Here goes the map</Text>
         <MapView style={styles.mapStyle}/>
       </View>
       <View style={styles.info_section}>
@@ -126,10 +127,4 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
   },
-
-  mapStyle: {
-    height: 500,
-  }
-
-  
 });
