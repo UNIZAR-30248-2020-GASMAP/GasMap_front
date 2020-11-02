@@ -12,6 +12,8 @@ import Geolocation from '@react-native-community/geolocation';
 
 
 
+
+
 export default class TabOneScreen extends React.Component {
   welcomeMessage = () => {
     Alert.alert(
@@ -58,8 +60,12 @@ export default class TabOneScreen extends React.Component {
       }
     )
   }
+
+
+  
   render(){
     return (
+      
       <View style={styles.container}>
         {/* <Text style={styles.title}>Tab One - Main Screen</Text> */}
         <View style={styles.map_section}>
