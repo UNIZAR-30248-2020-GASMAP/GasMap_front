@@ -2,3 +2,5 @@
 - expo init GasMap_front (Solo hacer una persona, sirve para crear la app)
 - expo install react-native-maps (instala las dependecias necesarias para usar Google Maps)
 - yarn add react-native-elements (instala React Native Elements)
+- npm install @react-native-community/geolocation --save
+- yarn add react-native-permissions

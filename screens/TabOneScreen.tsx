@@ -1,81 +1,148 @@
 import * as React from 'react';
-import MapView from 'react-native-maps';
+import { Text, Image, Platform } from 'react-native';
+import MapView, { Callout, Marker } from 'react-native-maps';
+import { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Alert, StyleSheet, Dimensions } from 'react-native';
+import { request, PERMISSIONS } from 'react-native-permissions';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { View } from '../components/Themed';
 import { Icon, Button } from 'react-native-elements';
+import Geolocation from '@react-native-community/geolocation';
 
 
 
+export default class TabOneScreen extends React.Component {
+  welcomeMessage = () => {
+    Alert.alert(
+      'MENSAJE DE PRUEBA',
+      'otro mensaje',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Ok'
+        }
+      ]
+      )
+  }
 
+  componentDidMount(){
+    this.requestLocationPermission();
+  }
 
+  requestLocationPermission = async () => {
+    if(Platform.OS == 'ios'){
+      var response = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+      console.log('iPhone: ' + response);
 
-export default function TabOneScreen() {
-  return (
-    <View style={styles.container}>
-      {/* <Text style={styles.title}>Tab One - Main Screen</Text> */}
-      <View style={styles.map_section}>
-        <MapView style={styles.mapStyle}/>
-      </View>
-      <View style={styles.info_section}>
-        <View style={styles.icon_main_container}>
-          <View style={styles.icon_container}>
-            <Icon
-              raised
-              name='map-o'
-              type='font-awesome'
-              color='black'
-              size={30}
-              onPress={() => console.log('hello')} />
-          </View>
+      if(response === 'granted'){
+        this.locateCurrentPosition();
+      }
+    } else{
+      var response = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+      console.log('Android: ' + response);
 
-          <View style={styles.icon_container}>
-            <Icon
-              raised
-              name='line-chart'
-              type='font-awesome'
-              color='black'
-              size={30}
-              onPress={() => console.log('hello')} />
-          </View>
+      if(response === 'granted'){
+        this.locateCurrentPosition();
+      }
+    }
+  }
 
-          <View style={styles.icon_container}>
-            <Icon
-              raised
-              name='thumbs-o-up'
-              type='font-awesome'
-              color='black'
-              size={30}
-              onPress={() => console.log('hello')} />
-          </View>
+  locateCurrentPosition = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log(JSON.stringify(position));
+      }
+    )
+  }
+  render(){
+    return (
+      <View style={styles.container}>
+        {/* <Text style={styles.title}>Tab One - Main Screen</Text> */}
+        <View style={styles.map_section}>
+          <MapView style={styles.mapStyle}
+            provider={PROVIDER_GOOGLE}
+            region={{ 
+              latitude: 41.653915,
+              longitude: -0.884258,
+              latitudeDelta: 0.09,
+              longitudeDelta: 0.035}}>
+          
+            <Marker
+              coordinate={{
+                latitude: 41.683889,
+                longitude: -0.887348}}
+                onPress={this.welcomeMessage}>
+              
+              
+              <Image source={require('../assets/images/gas-station-icon.png')}/>
 
-          <View style={styles.icon_container}>
-            <Icon
-              raised
-              // containerStyle={{backgroundColor: 'red'}}
-              // iconStyle={{backgroundColor: 'red'}}
-              name='location-searching'
-              type='material'
-              color='black'
-              // iconStyle={{}}
-              size={30}
-              onPress={() => console.log('hello')} />
-          </View>
+            </Marker>
+              
+          </MapView>
         </View>
-        {/* <View style={styles.button_container}> */}
+        <View style={styles.info_section}>
+          <View style={styles.icon_main_container}>
+            <View style={styles.icon_container}>
+              <Icon
+                raised
+                name='map-o'
+                type='font-awesome'
+                color='black'
+                size={30}
+                onPress={() => console.log('hello')} />
+            </View>
 
-        <Button
-          // color="red"
-          containerStyle={styles.button}
-          // buttonStyle={{ backgroundColor: "red"}}
-          title="Remove filters"
-          onPress={() => Alert.alert("Filters remove.")}
-        />
-        {/* </View> */}
+            <View style={styles.icon_container}>
+              <Icon
+                raised
+                name='line-chart'
+                type='font-awesome'
+                color='black'
+                size={30}
+                onPress={() => console.log('hello')} />
+            </View>
+
+            <View style={styles.icon_container}>
+              <Icon
+                raised
+                name='thumbs-o-up'
+                type='font-awesome'
+                color='black'
+                size={30}
+                onPress={() => console.log('hello3')} />
+            </View>
+
+            <View style={styles.icon_container}>
+              <Icon
+                raised
+                // containerStyle={{backgroundColor: 'red'}}
+                // iconStyle={{backgroundColor: 'red'}}
+                name='location-searching'
+                type='material'
+                color='black'
+                // iconStyle={{}}
+                size={30}
+                onPress={() => console.log('hello2')} />
+            </View>
+          </View>
+          {/* <View style={styles.button_container}> */}
+
+          <Button
+            // color="red"
+            containerStyle={styles.button}
+            // buttonStyle={{ backgroundColor: "red"}}
+            title="Remove filters"
+            onPress={() => Alert.alert("Filters remove.")}
+          />
+          {/* </View> */}
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
