@@ -30,6 +30,13 @@ function welcomeMessage() {
 
 export default function TabOneScreen() {
 
+  var gas_stations = {
+    coordinates: [
+      {latitude: 41.669257, longitude: -0.874130},
+      {latitude: 41.655571, longitude: -0.870268},
+      {latitude: 41.656549, longitude: -0.879407}
+    ]
+  }
   
   const [location, setLocation] = useState<Location.LocationObject>();
   const [errorMsg, setErrorMsg] = useState('');
@@ -54,6 +61,8 @@ export default function TabOneScreen() {
       <View style={styles.map_section}>
         <MapView style={styles.mapStyle}
           provider={PROVIDER_GOOGLE}
+          showsUserLocation={true}
+          showsMyLocationButton={true}
           region={{ 
             latitude: 41.653915,
             longitude: -0.884258,
@@ -62,8 +71,8 @@ export default function TabOneScreen() {
         
           <Marker
             coordinate={{
-              latitude: 41.683889,
-              longitude: -0.887348}}
+              latitude: gas_stations.coordinates[2].latitude,
+              longitude: gas_stations.coordinates[2].longitude,}}
               onPress={welcomeMessage}>
             
             
@@ -183,7 +192,7 @@ const styles = StyleSheet.create({
   },
 
   mapStyle: {
-    height: 500,
+    height: '100%',
   }
 
   
