@@ -5,3 +5,4 @@
 - expo install expo-location (https://docs.expo.io/versions/v39.0.0/sdk/location/)
 - yarn add @react-navigation/drawer
 - yarn add react-native-reanimated
+- yarn add axios
