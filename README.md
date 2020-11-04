@@ -5,3 +5,5 @@
 - npm install @react-native-community/geolocation --save (seguramente no haga falta)
 - yarn add react-native-permissions (seguramente no haga falta)
 - expo install expo-location (https://docs.expo.io/versions/v39.0.0/sdk/location/)
+- yarn add @react-navigation/drawer
+- yarn add react-native-reanimated
