@@ -31,6 +31,18 @@ function welcomeMessage() {
   )
 }
 
+class gas_station {
+    latitude_gas: number = 0;
+    longitude_gas: number = 0;
+
+    get_latitude(){
+      return this.latitude_gas;
+    }
+    get_longitude(){
+      return this.longitude_gas;
+    }
+}
+
 export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
 
   constructor(props) {
@@ -41,6 +53,7 @@ export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
   }
 
 
+  newCoords = new gas_station();
   async componentDidMount() {
     const coords = {
       lat: 41.786183, //location?.coords.latitude,
@@ -51,8 +64,11 @@ export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
       console.log("DATAAAAAAAAAAAA")
       console.log(data)
       this.setState({ gasStations: data })
+      this.newCoords.latitude_gas = data[0].latitude_gas
+      this.newCoords.longitude_gas = data[0].longitude_gas
+      console.log("gasolineras: " + JSON.stringify(this.newCoords))
     })
-    console.log(this.state.gasStations)
+
     const [location, setLocation] = useState<Location.LocationObject>();
     const [errorMsg, setErrorMsg] = useState('');
 
@@ -70,9 +86,8 @@ export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
     }, []);
   }
 
-
-
-
+  nLatitude: number = 0;
+  nLongitude: number = 0;
 
   render() {
     return (
@@ -88,11 +103,12 @@ export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
               latitudeDelta: 0.09,
               longitudeDelta: 0.035
             }}>
-
+            
             <Marker
+              
               coordinate={{
-                latitude: this.state.gasStations[0].latitude_gas,
-                longitude: this.state.gasStations[0].longitude_gas,
+                latitude: this.newCoords.get_latitude(),
+                longitude: this.newCoords.get_longitude(),
               }}
               onPress={welcomeMessage}>
 
