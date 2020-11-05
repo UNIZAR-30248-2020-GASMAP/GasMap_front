@@ -86,10 +86,9 @@ export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
     }, []);
   }
 
-  nLatitude: number = 0;
-  nLongitude: number = 0;
 
   render() {
+    
     return (
       <View style={styles.container}>
         <View style={styles.map_section}>
@@ -104,6 +103,7 @@ export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
               longitudeDelta: 0.035
             }}>
             
+            
             <Marker
               
               coordinate={{
@@ -116,6 +116,46 @@ export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
               <Image source={require('../assets/images/gas-station-icon.png')} />
 
             </Marker>
+
+            <Marker
+              
+              coordinate={{
+                latitude: 41.683144,
+                longitude: -0.886436,
+              }}
+              onPress={welcomeMessage}>
+
+
+              <Image source={require('../assets/images/gas-station-icon.png')} />
+
+            </Marker>
+
+            <Marker
+              
+              coordinate={{
+                latitude: 41.65694,
+                longitude: -0.878529,
+              }}
+              onPress={welcomeMessage}>
+
+
+              <Image source={require('../assets/images/gas-station-icon.png')} />
+
+            </Marker>
+            <Marker
+              
+              coordinate={{
+                latitude: 41.664043,
+                longitude: -0.877805,
+              }}
+              onPress={welcomeMessage}>
+
+
+              <Image source={require('../assets/images/gas-station-icon.png')} />
+
+            </Marker>
+
+            
 
           </MapView>
         </View>
