@@ -4,7 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
 import MainScreen from './screens/MainScreen';
-import Screen2 from './screens/TabTwoScreen';
+import TabTwoScreen from './screens/TabTwoScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -13,7 +13,7 @@ export default function App() {
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="MainScreen">
         <Drawer.Screen name="MainScreen" component={MainScreen} />
-        <Drawer.Screen name="Screen2" component={Screen2} />
+        <Drawer.Screen name="TabTwoScreen" component={TabTwoScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
