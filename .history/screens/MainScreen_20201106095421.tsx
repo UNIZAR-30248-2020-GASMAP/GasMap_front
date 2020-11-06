@@ -43,7 +43,7 @@ class gas_station {
     }
 }
 
-export default class MainScreen extends Component<{},{gasStations: Array<any>}> {
+export default class MainScreen extends Component<{},{gasStations: Array<T>}> {
 
   constructor(props) {
     super(props)
@@ -66,9 +66,10 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
       this.setState({ gasStations: data })
       this.newCoords.latitude_gas = data[0].latitude_gas
       this.newCoords.longitude_gas = data[0].longitude_gas
+      console.log("gasolineras: " + JSON.stringify(this.newCoords))
+      console.log("gasolineras: " + JSON.stringify(this.state.gasStations))
     })
 
-    {
     const [location, setLocation] = useState<Location.LocationObject>();
     const [errorMsg, setErrorMsg] = useState('');
 
@@ -84,7 +85,6 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
         setLocation(location);
       })();
     }, []);
-    }
   }
 
 
@@ -120,24 +120,46 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
 
             </Marker>
 
-            {/* Gaolineras */}
-
-            {this.state.gasStations.map((station) => {
-                    return (
-                      <Marker
-                    
-                        coordinate={{
-                          latitude: station.latitude_gas,
-                          longitude: station.longitude_gas,
-                        }}
-                        onPress={welcomeMessage}>
+            {/* <Marker
+              
+              coordinate={{
+                latitude: 41.683144,
+                longitude: -0.886436,
+              }}
+              onPress={welcomeMessage}>
 
 
-                        <Image source={require('../assets/images/gas-station-icon.png')} />
+              <Image source={require('../assets/images/gas-station-icon.png')} />
 
-                      </Marker>
-                    );
-                  })}
+            </Marker>
+
+            <Marker
+              
+              coordinate={{
+                latitude: 41.65694,
+                longitude: -0.878529,
+              }}
+              onPress={welcomeMessage}>
+
+
+              <Image source={require('../assets/images/gas-station-icon.png')} />
+
+            </Marker>
+            <Marker
+              
+              coordinate={{
+                latitude: 41.664043,
+                longitude: -0.877805,
+              }}
+              onPress={welcomeMessage}>
+
+
+              <Image source={require('../assets/images/gas-station-icon.png')} />
+
+            </Marker> */}
+
+            
+
           </MapView>
         </View>
         <View style={styles.info_section}>
