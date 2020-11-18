@@ -14,6 +14,8 @@ import { Icon, Button } from 'react-native-elements';
 import Geolocation from '@react-native-community/geolocation';
 
 import { getGasStations } from '../drivers/connection'
+import GasStation from './screens/GasStation';
+
 
 function welcomeMessage() {
   Alert.alert(
@@ -30,16 +32,35 @@ function welcomeMessage() {
     ]
   )
 }
+function byeMessage() {
+  Alert.alert(
+    'CHAU',
+    'ADIOOOOOOOOOOOOOS CERDO',
+    [
+      {
+        text: 'Cancel',
+        style: 'cancel'
+      },
+      {
+        text: 'Ok'
+      }
+    ]
+  )
+}
 
 class gas_station {
     latitude_gas: number = 0;
     longitude_gas: number = 0;
+    id: number = 0;
 
     get_latitude(){
       return this.latitude_gas;
     }
     get_longitude(){
       return this.longitude_gas;
+    }
+    get_id(){
+      return this.id;
     }
 }
 
@@ -66,6 +87,7 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
       this.setState({ gasStations: data })
       this.newCoords.latitude_gas = data[0].latitude_gas
       this.newCoords.longitude_gas = data[0].longitude_gas
+      this.newCoords.id=data[0].id_gas
     })
 
     {
@@ -107,19 +129,6 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
             {/* this.gasStations.forEach(station => {
               
             }); */}
-            <Marker
-              
-              coordinate={{
-                latitude: this.newCoords.get_latitude(),
-                longitude: this.newCoords.get_longitude(),
-              }}
-              onPress={welcomeMessage}>
-
-
-              <Image source={require('../assets/images/gas-station-icon.png')} />
-
-            </Marker>
-
             {/* Gaolineras */}
 
             {this.state.gasStations.map((station) => {
@@ -130,7 +139,10 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
                           latitude: station.latitude_gas,
                           longitude: station.longitude_gas,
                         }}
-                        onPress={welcomeMessage}>
+                        onPress={()=>{this.props.navigation.setParams({
+                          idGasolinera:station.id_gas
+                        });console.log(this.props.navigation);this.props.navigation.navigate("GasStation")}}
+                        >
 
 
                         <Image source={require('../assets/images/gas-station-icon.png')} />
