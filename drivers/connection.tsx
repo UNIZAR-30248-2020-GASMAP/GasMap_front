@@ -30,4 +30,7 @@ export const postLogin = (email: string, password: string) => {
             console.log("Data: " + res)
             return res.data
         })
+        .catch(err => {
+            console.log("Error login: " + err)
+        })
 }
