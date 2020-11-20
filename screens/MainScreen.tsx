@@ -4,17 +4,12 @@ import { Text, Image, Platform } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Alert, StyleSheet, Dimensions } from 'react-native';
-import { request, PERMISSIONS } from 'react-native-permissions';
 import * as Location from 'expo-location';
-import Constants from 'expo-constants';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import { View } from '../components/Themed';
 import { Icon, Button } from 'react-native-elements';
-import Geolocation from '@react-native-community/geolocation';
 
 import { getGasStations } from '../drivers/connection'
-import GasStation from './screens/GasStation';
 
 
 function welcomeMessage() {
@@ -48,6 +43,7 @@ function byeMessage() {
   )
 }
 
+//Class that stores all data for a gas station
 class gas_station {
     latitude_gas: number = 0;
     longitude_gas: number = 0;
@@ -86,9 +82,6 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
     })
 
     {
-    const [location, setLocation] = useState<Location.LocationObject>();
-    const [errorMsg, setErrorMsg] = useState('');
-
     useEffect(() => {
       (async () => {
         let { status } = await Location.requestPermissionsAsync();
@@ -98,7 +91,6 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
 
         let location = await Location.getCurrentPositionAsync({});
         console.log('Location: ' + JSON.stringify(location))
-        setLocation(location);
       })();
     }, []);
     }
@@ -120,11 +112,6 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
               latitudeDelta: 0.09,
               longitudeDelta: 0.035
             }}>
-            
-            {/* this.gasStations.forEach(station => {
-              
-            }); */}
-            {/* Gaolineras */}
 
             {this.state.gasStations.map((station) => {
                     return (
@@ -182,26 +169,19 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
             <View style={styles.icon_container}>
               <Icon
                 raised
-                // containerStyle={{backgroundColor: 'red'}}
-                // iconStyle={{backgroundColor: 'red'}}
                 name='location-searching'
                 type='material'
                 color='black'
-                // iconStyle={{}}
                 size={30}
                 onPress={() => console.log('hello2')} />
             </View>
           </View>
-          {/* <View style={styles.button_container}> */}
 
           <Button
-            // color="red"
             containerStyle={styles.button}
-            // buttonStyle={{ backgroundColor: "red"}}
             title="Remove filters"
             onPress={() => Alert.alert("Filters remove.")}
           />
-          {/* </View> */}
         </View>
       </View>
     )
@@ -214,7 +194,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor:"red",
   },
   title: {
     fontSize: 20,
@@ -222,11 +201,9 @@ const styles = StyleSheet.create({
   },
   map_section: {
     flex: 7,
-    // marginVertical: 30,
     backgroundColor: "green",
     width: "100%",
     color: "black",
-    // marginHorizontal: 30,
   },
   info_section: {
     flex: 2,
@@ -237,10 +214,8 @@ const styles = StyleSheet.create({
   },
 
   icon_main_container: {
-    // flex: 1,
     flexDirection: "row",
     width: "100%",
-    // backgroundColor: "yellow",
   },
 
   icon_container: {
@@ -261,6 +236,4 @@ const styles = StyleSheet.create({
   mapStyle: {
     height: '100%',
   }
-
-
 });
