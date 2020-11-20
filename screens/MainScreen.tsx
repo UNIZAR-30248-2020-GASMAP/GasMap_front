@@ -31,18 +31,6 @@ function welcomeMessage() {
   )
 }
 
-class gas_station {
-    latitude_gas: number = 0;
-    longitude_gas: number = 0;
-
-    get_latitude(){
-      return this.latitude_gas;
-    }
-    get_longitude(){
-      return this.longitude_gas;
-    }
-}
-
 export default class MainScreen extends Component<{},{gasStations: Array<any>}> {
 
   constructor(props) {
@@ -52,20 +40,13 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
     };
   }
 
-
-  newCoords = new gas_station();
   async componentDidMount() {
     const coords = {
       lat: 41.786183, //location?.coords.latitude,
       lon: -1.219913 //location?.coords.longitude
     }
-    console.log("Voy a llamar a la funcion del back")
     await getGasStations(coords).then(data => {
-      console.log("DATAAAAAAAAAAAA")
-      console.log(data)
       this.setState({ gasStations: data })
-      this.newCoords.latitude_gas = data[0].latitude_gas
-      this.newCoords.longitude_gas = data[0].longitude_gas
     })
 
     {
@@ -103,24 +84,8 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
               latitudeDelta: 0.09,
               longitudeDelta: 0.035
             }}>
-            
-            {/* this.gasStations.forEach(station => {
-              
-            }); */}
-            <Marker
-              
-              coordinate={{
-                latitude: this.newCoords.get_latitude(),
-                longitude: this.newCoords.get_longitude(),
-              }}
-              onPress={welcomeMessage}>
 
-
-              <Image source={require('../assets/images/gas-station-icon.png')} />
-
-            </Marker>
-
-            {/* Gaolineras */}
+            {/* Gas Stations */}
 
             {this.state.gasStations.map((station) => {
                     return (

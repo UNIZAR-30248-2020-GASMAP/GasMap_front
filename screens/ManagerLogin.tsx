@@ -1,6 +1,29 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { postLogin } from '../drivers/connection'
 
+//Post request to the backend 
+async function postLoginRequest(email: string, password: string) {
+  console.log("Voy a llamar a la funcion POST")
+  await postLogin(email,password).then(data => {
+    console.log("DATA POST")
+    console.log(data)
+  })
+}
+
+//Validates that 'email' has a correct pattern
+function validate(email: string, password: string) {
+  if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) { 
+    postLoginRequest(email,password)
+    return true
+  } else { 
+    Alert.alert('maaaaal') 
+    return false
+  }
+}
+
+
+//Manager Login Screen
 export default class ManagerLogin extends React.Component {
   state={
     email:"",
@@ -11,7 +34,8 @@ export default class ManagerLogin extends React.Component {
       <View style={styles.container}>
         <Text style={styles.logo}>GasMap</Text>
         <View style={styles.inputView} >
-          <TextInput  
+          <TextInput
+            keyboardType="email-address"
             style={styles.inputText}
             placeholder="Email" 
             placeholderTextColor="#003f5c"
@@ -25,7 +49,7 @@ export default class ManagerLogin extends React.Component {
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
         </View>
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity style={styles.loginBtn} onPress={() => validate(this.state.email, this.state.password)}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity>
