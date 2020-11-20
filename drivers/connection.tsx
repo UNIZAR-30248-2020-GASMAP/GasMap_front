@@ -23,12 +23,10 @@ export const getGasStationsById = (id) => {
 }
 
 //Post to the backend to login a manager
-export const postLogin = (_email: string, _password: string) => {
+export const postLogin = (manager) => {
     return axios
-        .post(`https://gps-testing-server.herokuapp.com/loginManager?email=${_email}&password=${_password}`, {
-            headers: { "Content-type": "application/json" }, 
-            email: _email,
-            password: _password
+        .post(`https://gps-testing-server.herokuapp.com/loginManager?email=${manager.email}&password=${manager.password}`, {
+            headers: { "Content-type": "application/json" }
         })
         .then(res => {
             console.log("Data: " + res)
