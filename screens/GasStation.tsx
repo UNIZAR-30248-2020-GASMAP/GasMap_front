@@ -39,7 +39,7 @@ export default class GasStation extends React.Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      idGasolinera: 1000,
+      idGasolinera: 0,
       datosGasolinera: [],
       chart: [1.10, 1.12, 1.9]
     };
@@ -49,18 +49,14 @@ export default class GasStation extends React.Component {
     //Poner un Toast Loading mientras se realiza esta llamada para informar al usuario que se está cargando
     //Llamar a la función del back para ver los datos de la gasolinera que se quiere
     console.log("Voy a llamar a la funcion del back para obtener los datos de la gasolinera a partir del ID")
-    await getGasStationsById(this.state.idGasolinera).then(data => {
-      console.log("ROUTE");
-      console.log(this.props.route);
-      console.log("DATOS GASOLINERA A PARTIR DEL ID")
-      console.log(data)
+    await getGasStationsById(this.props.route.params.idGasolinera).then(data => {
       this.setState({ datosGasolinera: data })
+      console.log(this.state.datosGasolinera)
     })
 
   }
 
   render() {
-    console.log("RENDER");
     return (
       <ScrollView>
         <View style={styles.container}>

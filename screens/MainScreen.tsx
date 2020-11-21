@@ -128,7 +128,7 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
                           });
                           console.log(this.props.navigation);
                           // <GasStation idGasolinera={station.id_gas}/>
-                          this.props.navigation.navigate("GasStation",{ names: ['Edu']})
+                          this.props.navigation.navigate("GasStation",{  idGasolinera: station.id_gas})
                         }}
                         >
 
