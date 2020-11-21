@@ -154,7 +154,7 @@ function manualScreenStack({ navigation }) {
   );
 }
 
-function gasStationScreenStack({ navigation }) {
+function gasStationScreenStack({ navigation, route }) {
   return (
     <Stack.Navigator
       initialRouteName="GasStation"

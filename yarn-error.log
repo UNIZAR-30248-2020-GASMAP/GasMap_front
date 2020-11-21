@@ -1,73 +1,74 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add react-native-reanimated
+  C:\Users\Eduardo\AppData\Roaming\npm\node_modules\node\bin\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-svg-charts
 
 PATH: 
-  /home/sergio/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/gradle/gradle-6.6.1/bin
+  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\MATLAB\R2019b\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files (x86)\Windows Live\Shared;%NVM_HOME%;%NVM_SYMLINK%;C:\Program Files\Java\jdk-14.0.1\bin;C:\Program Files (x86)\Java\jre1.8.0_251\bin;C:\Users\Eduardo\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Eduardo\AppData\Local\Android\Sdk\platform-tools;C:\Users\Eduardo\AppData\Local\Microsoft\WindowsApps;C:\Users\Eduardo\AppData\Local\Yarn\bin;C:\Users\Eduardo\Desktop\Universidad 29-07-2019\6Cuatrimestre\Arquitectura Software\Practica RabbitMQ\Tutorial Hello World;C:\Flutter\flutter\bin;C:\Program Files\MongoDB\Server\4.4\bin;C:\Program Files\heroku\bin;C:\Archivos de programa\nodejs\;C:\Users\Eduardo\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\Eduardo\AppData\Roaming\npm
 
 Yarn version: 
-  1.22.5
+  1.22.4
 
 Node version: 
-  10.19.0
+  13.14.0
 
 Platform: 
-  linux x64
+  win32 x64
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/home/sergio/Escritorio/cuarto/GPS/GasMap_front/node_modules/@babel/core/node_modules/debug/LICENSE'
+  Error: EPERM: operation not permitted, unlink 'C:\Users\Eduardo\Desktop\Universidad 29-07-2019\7Cuatrimestre\Gestión del proyecto software\GasMap_front\node_modules\@babel\generator\node_modules\.bin'
 
 npm manifest: 
   {
-    "main": "node_modules/expo/AppEntry.js",
-    "scripts": {
-      "start": "expo start",
-      "android": "expo start --android",
-      "ios": "expo start --ios",
-      "web": "expo start --web",
-      "eject": "expo eject",
-      "test": "jest --watchAll"
-    },
-    "jest": {
-      "preset": "jest-expo"
-    },
-    "dependencies": {
-      "@expo/vector-icons": "^10.0.0",
-      "@react-native-community/geolocation": "^2.0.2",
-      "@react-native-community/masked-view": "0.1.10",
-      "@react-navigation/bottom-tabs": "^5.8.0",
-      "@react-navigation/drawer": "^5.10.5",
-      "@react-navigation/native": "^5.7.3",
-      "@react-navigation/stack": "^5.9.0",
-      "axios": "^0.21.0",
-      "expo": "~39.0.2",
-      "expo-asset": "~8.2.0",
-      "expo-constants": "~9.2.0",
-      "expo-font": "~8.3.0",
-      "expo-linking": "^1.0.1",
-      "expo-location": "~9.0.0",
-      "expo-splash-screen": "~0.6.2",
-      "expo-status-bar": "~1.0.2",
-      "expo-web-browser": "~8.5.0",
-      "react": "16.13.1",
-      "react-dom": "16.13.1",
-      "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
-      "react-native-elements": "^3.0.0-alpha.1",
-      "react-native-gesture-handler": "~1.7.0",
-      "react-native-maps": "0.27.1",
-      "react-native-permissions": "^2.2.2",
-      "react-native-reanimated": "^1.13.1",
-      "react-native-safe-area-context": "3.1.4",
-      "react-native-screens": "~2.10.1",
-      "react-native-web": "~0.13.12"
-    },
-    "devDependencies": {
-      "@babel/core": "~7.9.0",
-      "@types/react": "~16.9.35",
-      "@types/react-native": "~0.63.2",
-      "jest-expo": "~39.0.0",
-      "typescript": "~3.9.5"
-    },
-    "private": true
+      "main": "node_modules/expo/AppEntry.js",
+      "scripts": {
+          "start": "expo start",
+          "android": "expo start --android",
+          "ios": "expo start --ios",
+          "web": "expo start --web",
+          "eject": "expo eject",
+          "test": "jest --watchAll"
+      },
+      "jest": {
+          "preset": "jest-expo"
+      },
+      "dependencies": {
+          "@expo/vector-icons": "^10.0.0",
+          "@react-native-community/geolocation": "^2.0.2",
+          "@react-native-community/masked-view": "0.1.10",
+          "@react-navigation/bottom-tabs": "^5.8.0",
+          "@react-navigation/drawer": "^5.10.5",
+          "@react-navigation/native": "^5.7.3",
+          "@react-navigation/stack": "^5.9.0",
+          "axios": "^0.21.0",
+          "expo": "~39.0.2",
+          "expo-asset": "~8.2.0",
+          "expo-constants": "~9.2.0",
+          "expo-font": "~8.3.0",
+          "expo-linking": "^1.0.1",
+          "expo-location": "~9.0.0",
+          "expo-splash-screen": "~0.6.2",
+          "expo-status-bar": "~1.0.2",
+          "expo-web-browser": "~8.5.0",
+          "react": "16.13.1",
+          "react-dom": "16.13.1",
+          "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
+          "react-native-elements": "^3.0.0-alpha.1",
+          "react-native-gesture-handler": "~1.7.0",
+          "react-native-maps": "0.27.1",
+          "react-native-permissions": "^2.2.2",
+          "react-native-reanimated": "^1.13.1",
+          "react-native-safe-area-context": "3.1.4",
+          "react-native-screens": "~2.10.1",
+          "react-native-simple-table": "^0.0.3",
+          "react-native-web": "~0.13.12"
+      },
+      "devDependencies": {
+          "@babel/core": "~7.9.0",
+          "@types/react": "~16.9.35",
+          "@types/react-native": "~0.63.2",
+          "jest-expo": "~39.0.0",
+          "typescript": "~3.9.5"
+      },
+      "private": true
   }
 
 yarn manifest: 
@@ -6982,6 +6983,11 @@ Lockfile:
     version "2.10.1"
     resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.10.1.tgz#06d22fae87ef0ce51c616c34a199726db1403b95"
     integrity sha512-Z2kKSk4AwWRQNCBmTjViuBQK0/Lx0jc25TZptn/2gKYUCOuVRvCekoA26u0Tsb3BIQ8tWDsZW14OwDlFUXW1aw==
+  
+  react-native-simple-table@^0.0.3:
+    version "0.0.3"
+    resolved "https://registry.yarnpkg.com/react-native-simple-table/-/react-native-simple-table-0.0.3.tgz#5bb37337078d0043a5b4ee862b44173bb36a1fff"
+    integrity sha512-U5b6KXqsCxOgwqm26Ej4G3T3gCch4BV3micK/WYFjMENW33fh/DmoTfr11Gwb92/FDToH8dzuNY/peA0oEbkjQ==
   
   react-native-size-matters@^0.3.1:
     version "0.3.1"

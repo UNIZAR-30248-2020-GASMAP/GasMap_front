@@ -6,3 +6,6 @@
 - yarn add @react-navigation/drawer
 - yarn add react-native-reanimated
 - yarn add axios
+- yarn add react-native-simple-table
+- yarn add react-native-svg
+- yarn add react-native-svg-charts

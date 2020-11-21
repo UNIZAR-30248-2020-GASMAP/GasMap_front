@@ -10,6 +10,7 @@ import { View } from '../components/Themed';
 import { Icon, Button } from 'react-native-elements';
 
 import { getGasStations } from '../drivers/connection'
+import GasStation from './GasStation';
 
 
 function welcomeMessage() {
@@ -121,9 +122,14 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
                           latitude: station.latitude_gas,
                           longitude: station.longitude_gas,
                         }}
-                        onPress={()=>{this.props.navigation.setParams({
-                          idGasolinera:station.id_gas
-                        });console.log(this.props.navigation);this.props.navigation.navigate("GasStation")}}
+                        onPress={
+                          ()=>{this.props.navigation.setParams({
+                            idGasolinera: station.id_gas
+                          });
+                          console.log(this.props.navigation);
+                          // <GasStation idGasolinera={station.id_gas}/>
+                          this.props.navigation.navigate("GasStation",{ names: ['Edu']})
+                        }}
                         >
 
 
