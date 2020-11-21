@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements';
 
 import { getGasStationsById } from '../drivers/connection';
 import { Divider } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements'
 
 
 
@@ -34,35 +35,40 @@ export default class ManagerEditServices extends React.Component {
       console.log("DATOS GASOLINERA A PARTIR DEL ID")
       console.log(this.state.datosGasolinera);
     })
-    
-    
+
+
   }
-  
+
   showServices = () => {
     console.log("Show services STRING");
     console.log(JSON.stringify(this.state.datosGasolinera.services_gas));
     console.log("Show services");
-    var a = ['Hola1','hola2']
-    if(this.state.datosGasolinera.services_gas !== undefined){
+    var a = ['Hola1', 'hola2']
+    let listServices = this.state.datosGasolinera.services_gas;
+    if (listServices !== undefined) {
       return (
-        this.state.datosGasolinera.services_gas.map((gas, index) => (
-          <Text style={{color:'black'}} key={gas}>{gas}</Text>
-          ))
-          // this.state.datosGasolinera.services_gas.map((gas, index) => (
-            //     <p key={index}>Hello!</p>
-            // ))
-            )
-    }else{
-      return(
-        <Text style={{color: 'black'}}>Indefinido</Text>
+        <View style={styles.containerListServices}>
+          {
+            listServices.map((i, l) => (
+
+              <ListItem key={i} bottomDivider>
+                <Avatar source={{ uri: l.avatar_url }} />
+                <ListItem.Content>
+                  <ListItem.Title>{l.name}</ListItem.Title>
+                  <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+                </ListItem.Content>
+              </ListItem>
+              // <Text style={{color:'black'}} key={gas}>{gas}</Text>
+            ))
+          }
+        </View>
+      )
+
+    } else {
+      return (
+        <Text style={{ color: 'black' }}>Indefinido</Text>
       )
     }
-    // this.state.datosGasolinera.services_gas.map((value,index) => {
-    //   console.log(index);
-    //   return(
-    //     <Text>Hola</Text>
-    //   )
-    // });
   }
 
   render() {
@@ -96,7 +102,7 @@ export default class ManagerEditServices extends React.Component {
             </Text>
             <View style={styles.servicesView}>
               {this.showServices()}
-              <Icon
+              {/* <Icon
                 reverse
                 style={styles.servicesIcon}
                 name='wheelchair'
@@ -104,7 +110,7 @@ export default class ManagerEditServices extends React.Component {
                 color='black'
                 size={15}
                 onPress={() => Alert.alert('Service: Wheelchair')}
-              />
+              /> */}
               {/* <Icon
                 reverse
                 style={styles.servicesIcon}
@@ -157,21 +163,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   containerServices: {
-    backgroundColor: 'white',
-    alignItems: 'center',
+    // backgroundColor: 'white',
+    alignItems: 'flex-start',
+    backgroundColor: 'red'
+
     // flexDirection: 'row'
   },
-  containerSchedule: {
-    backgroundColor: 'white',
-    flexDirection: 'row'
-  },
-  containerFuel: {
-    backgroundColor: 'white',
-    // flexDirection: 'row'
-  },
-  containerPrices: {
-    backgroundColor: 'white',
-    // flexDirection: 'row'
+  containerListServices:{
+    alignItems: 'flex-start',
+    backgroundColor: 'red'
   },
   mainTitle: {
     fontSize: 25,
@@ -197,27 +197,6 @@ const styles = StyleSheet.create({
     paddingBottom: '5%',
     paddingTop: '5%',
     paddingLeft: '5%'
-  },
-  servicesView: {
-    paddingTop: '2.5%',
-    backgroundColor: 'white',
-    flexDirection: 'row'
-  },
-  scheduleView: {
-    paddingTop: '5%',
-    paddingLeft: '2.5%',
-    backgroundColor: 'white',
-    flexDirection: 'row'
-  },
-  fuelView: {
-    backgroundColor: 'white',
-    flexDirection: 'row'
-  },
-  pricesView: {
-    height: 300,
-    width: '100%',
-    backgroundColor: 'white',
-    flexDirection: 'row'
   },
   separator: {
     marginVertical: 30,
