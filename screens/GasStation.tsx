@@ -33,6 +33,7 @@ const dataX = [1, 2, 3, 4, 5];
 const data = [1.10, 1.12, 1.09,1.05,1.0];
 const contentInset = { top: 20, bottom: 20 }
 
+
 export default class GasStation extends React.Component {
 
   constructor(props: any) {
@@ -43,6 +44,7 @@ export default class GasStation extends React.Component {
       chart: [1.10, 1.12, 1.9]
     };
   }
+
   async componentDidMount() {
     //Poner un Toast Loading mientras se realiza esta llamada para informar al usuario que se está cargando
     //Llamar a la función del back para ver los datos de la gasolinera que se quiere
@@ -64,7 +66,7 @@ export default class GasStation extends React.Component {
         <View style={styles.container}>
           <View style={styles.containerTop}>
             <Text style={styles.mainTitle}>Gas Station Info</Text>
-            <Text style={styles.plainBold}>
+            <Text style={styles.title}>
               <Icon
                 name='location-on'
                 type='material'
@@ -79,7 +81,7 @@ export default class GasStation extends React.Component {
             <Text style={styles.plainBold}>
               {'Services: '}
             </Text>
-            <View style={styles.servicesView}>
+            <ScrollView horizontal={true} style={styles.servicesView}>
               {/* Prueba a llamar a los iconos dinamicamente */}
               {/* {this.getIcons(nameIcons)} */}
               <Icon
@@ -118,7 +120,34 @@ export default class GasStation extends React.Component {
                 size={15}
                 onPress={() => Alert.alert('Service: Water hose')}
               />
-            </View>
+              <Icon
+                reverse
+                style={styles.servicesIcon}
+                name='wind'
+                type='font-awesome-5'
+                color='black'
+                size={15}
+                onPress={() => Alert.alert('Service: Water hose')}
+              />
+              <Icon
+                reverse
+                style={styles.servicesIcon}
+                name='water'
+                type='font-awesome-5'
+                color='black'
+                size={15}
+                onPress={() => Alert.alert('Service: Water hose')}
+              />
+              <Icon
+                reverse
+                style={styles.servicesIcon}
+                name='wind'
+                type='font-awesome-5'
+                color='black'
+                size={15}
+                onPress={() => Alert.alert('Service: Water hose')}
+              />
+            </ScrollView >
           </View>
           <View style={styles.containerSchedule}>
             <Text style={styles.plainBold}>
@@ -219,8 +248,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    paddingTop: '5%',
-    color: 'black',
+    color: 'black'
   },
   plain: {
     fontSize: 17,
@@ -240,7 +268,7 @@ const styles = StyleSheet.create({
   servicesView: {
     paddingTop: '2.5%',
     backgroundColor: 'white',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   scheduleView: {
     paddingTop: '5%',
