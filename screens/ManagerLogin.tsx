@@ -3,11 +3,20 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'reac
 import { postLogin } from '../drivers/connection'
 
 //Post request to the backend 
-async function postLoginRequest(email: string, password: string) {
+async function postLoginRequest(_email: string, _password: string) {
   console.log("Voy a llamar a la funcion POST")
-  await postLogin(email,password).then(data => {
+  const manager = {
+    email: _email,
+    password: _password
+  }
+  await postLogin(manager).then(data => {
     console.log("DATA POST")
     console.log(data)
+    if (data == undefined) {
+      Alert.alert('Username or password incorrect')
+    } else {
+      Alert.alert('Login correct')
+    }
   })
 }
 
@@ -17,7 +26,7 @@ function validate(email: string, password: string) {
     postLoginRequest(email,password)
     return true
   } else { 
-    Alert.alert('maaaaal') 
+    Alert.alert('Please, use a valid email') 
     return false
   }
 }
