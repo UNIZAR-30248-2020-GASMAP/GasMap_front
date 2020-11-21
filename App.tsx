@@ -74,7 +74,7 @@ const BackDrawerStructure = (props)=> {
   //Structure for the navigatin Drawer
   const toggleBack = () => {
     //Props to open/close the drawer
-    props.navigationProps.goBack();
+    props.navigationProps.navigate('MainScreen');
   };
 
   return (
@@ -95,27 +95,48 @@ const BackDrawerStructure = (props)=> {
 
 function mainScreenStack({ navigation }) {
   return (
-      <Stack.Navigator initialRouteName="MainScreen">
+      <Stack.Navigator initialRouteName="MainScreen"
+        screenOptions={{
+          headerLeft: ()=>
+            <NavigationDrawerStructure
+              navigationProps={navigation}
+            />,
+          headerRight: ()=>
+            <ProfileDrawerStructure
+              navigationProps={navigation}
+            />,
+          headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          }
+        }}
+      >
         <Stack.Screen
           name="MainScreen"
           component={MainScreen}
           options={{
-            title: 'Main Screen', //Set Header Title
+            title: 'MainScreen', //Set Header Title
+          }}
+        />
+        <Stack.Screen
+          name="GasStation"
+          component={GasStation}
+          options={{
+            title: 'GasStation', //Set Header Title
             headerLeft: ()=>
-              <NavigationDrawerStructure
-                navigationProps={navigation}
-              />,
-            headerRight: ()=>
-              <ProfileDrawerStructure
-                navigationProps={navigation}
-              />,
-            headerStyle: {
-              backgroundColor: '#f4511e', //Set Header color
-            },
-            headerTintColor: '#fff', //Set Header text color
-            headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
-            },
+            <BackDrawerStructure
+              navigationProps={navigation}
+            />,
+          headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          }
           }}
         />
       </Stack.Navigator>
@@ -148,13 +169,12 @@ function manualScreenStack({ navigation }) {
         component={Manual}
         options={{
           title: 'Manual', //Set Header Title
-          
         }}/>
     </Stack.Navigator>
   );
 }
 
-function gasStationScreenStack({ navigation, route }) {
+/*function gasStationScreenStack({ navigation, route }) {
   return (
     <Stack.Navigator
       initialRouteName="GasStation"
@@ -176,11 +196,10 @@ function gasStationScreenStack({ navigation, route }) {
         component={GasStation}
         options={{
           title: 'GasStation', //Set Header Title
-          
         }}/>
     </Stack.Navigator>
   );
-}
+}*/
 
 function managerLoginScreenStack({ navigation }) {
   return (
@@ -204,12 +223,14 @@ function managerLoginScreenStack({ navigation }) {
         component={ManagerLogin}
         options={{
           title: 'ManagerLogin', //Set Header Title
-          
         }}/>
     </Stack.Navigator>
   );
 }
-
+/*<Drawer.Screen
+          name="GasStation"
+          options={{ drawerLabel: 'Gas Station Info' }}
+          component={gasStationScreenStack} />*/
 function App() {
   return (
     <NavigationContainer>
@@ -226,10 +247,7 @@ function App() {
           name="ManualPage"
           options={{ drawerLabel: 'Manual' }}
           component={manualScreenStack} />
-        <Drawer.Screen
-          name="GasStation"
-          options={{ drawerLabel: 'Gas Station Info' }}
-          component={gasStationScreenStack} />
+        
         <Drawer.Screen
           name="ManagerLogin"
           options={{ drawerLabel: 'Manager Login' }}

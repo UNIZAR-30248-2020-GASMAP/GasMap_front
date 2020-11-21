@@ -39,7 +39,7 @@ export default class GasStation extends React.Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      idGasolinera: 2,
+      idGasolinera: 1000,
       datosGasolinera: [],
       chart: [1.10, 1.12, 1.9]
     };
