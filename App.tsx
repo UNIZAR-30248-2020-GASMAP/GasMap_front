@@ -20,6 +20,7 @@ import Manual from './screens/Manual';
 import GasStation from './screens/GasStation';
 import ManagerLogin from './screens/ManagerLogin';
 import ManagerEditServices from './screens/ManagerEditServices';
+import ManagerGasStation from './screens/ManagerGasStation';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -225,9 +226,42 @@ function managerLoginScreenStack({ navigation }) {
         options={{
           title: 'ManagerLogin', //Set Header Title
         }}/>
+      <Stack.Screen
+        name="ManagerGasStation"
+        component={ManagerGasStation}
+        options={{
+          title: 'ManagerGasStation', //Set Header Title
+        }}/>
     </Stack.Navigator>
   );
 }
+
+// function managerGasStationScreenStack({ navigation }) {
+//   return (
+//     <Stack.Navigator
+//       initialRouteName="ManagerGasStation"
+//       screenOptions={{
+//         headerLeft: ()=>
+//           <BackDrawerStructure
+//             navigationProps={navigation}
+//           />,
+//         headerStyle: {
+//           backgroundColor: '#f4511e', //Set Header color
+//         },
+//         headerTintColor: '#fff', //Set Header text color
+//         headerTitleStyle: {
+//           fontWeight: 'bold', //Set Header text style
+//         }
+//       }}>
+//       <Stack.Screen
+//         name="ManagerGasStation"
+//         component={ManagerLogin}
+//         options={{
+//           title: 'ManagerGasStation', //Set Header Title
+//         }}/>
+//     </Stack.Navigator>
+//   );
+// }
 
 function managerEditServicesScreenStack({ navigation }) {
   return (
@@ -275,7 +309,6 @@ function App() {
           name="ManualPage"
           options={{ drawerLabel: 'Manual' }}
           component={manualScreenStack} />
-        
         <Drawer.Screen
           name="ManagerLogin"
           options={{ drawerLabel: 'Manager Login' }}

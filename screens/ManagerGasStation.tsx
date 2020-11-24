@@ -34,7 +34,7 @@ const data = [1.10, 1.12, 1.09,1.05,1.0];
 const contentInset = { top: 20, bottom: 20 }
 
 
-export default class GasStation extends React.Component {
+export default class ManagerGasStation extends React.Component {
 
   constructor(props: any) {
     super(props)
@@ -51,6 +51,10 @@ export default class GasStation extends React.Component {
     await getGasStationsById(this.props.route.params.idGasolinera).then(data => {
       this.setState({ datosGasolinera: data })
       console.log(this.state.datosGasolinera)
+
+       //cargar datos necesario en state
+      //precios de fuel
+      this.setState({chart: []})
     })
 
   }
@@ -59,9 +63,9 @@ export default class GasStation extends React.Component {
     return (
       <ScrollView>
         <View style={styles.container}>
-          <View style={styles.containerTop}>
-            <Text style={styles.mainTitle}>Gas Station Info</Text>
-            <Text style={styles.title}>
+        <View style={styles.containerTop}>
+            <Text style={styles.mainTitle}>Your Gas Station is:</Text>
+            <Text style={styles.plainBold}>
               <Icon
                 name='location-on'
                 type='material'
@@ -71,6 +75,13 @@ export default class GasStation extends React.Component {
               />
               {this.state.datosGasolinera.street_gas}
             </Text>
+            {/* Horizontal line */}
+            <View
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+              }}
+            />
           </View>
           <View style={styles.containerServices}>
             <Text style={styles.plainBold}>

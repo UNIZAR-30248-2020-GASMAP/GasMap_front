@@ -88,14 +88,14 @@ export default class ManagerEditServices extends React.Component {
               />
               {this.state.datosGasolinera.street_gas}
             </Text>
+            {/* Horizontal line */}
+            <View
+              style={{
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+              }}
+            />
           </View>
-          {/* Horizontal line */}
-          <View
-            style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-            }}
-          />
           <View style={styles.containerServices}>
             <Text style={styles.plainBold}>
               {'Services'}
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
 
     // flexDirection: 'row'
   },
-  containerListServices:{
+  containerListServices: {
     alignItems: 'flex-start',
     backgroundColor: 'red'
   },
