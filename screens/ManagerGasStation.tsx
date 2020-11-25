@@ -59,6 +59,35 @@ export default class ManagerGasStation extends React.Component {
 
   }
 
+  //Muestra en filas separando por '\n'
+  processTime(){
+    let timeGas = this.state.datosGasolinera.time_gas;
+    console.log(this.state.datosGasolinera.time_gas);
+    
+    if (timeGas !== undefined) {
+      let arrayParts: Array<String> = timeGas.split('\\n');
+      let acum: String = ''
+      console.log("PARTES");
+      console.log(arrayParts);
+      console.log(arrayParts[0]);
+      console.log(arrayParts[2]);
+      return(
+        <View style={{backgroundColor:'white'}}>
+          {
+            arrayParts.map((parte, index) => (
+              <Text style={styles.plain}>{parte}</Text>
+            ))
+          }
+        </View>
+      )
+      
+    } else {
+      return (
+        <Text style={{ color: 'black' }}>Indefinido</Text>
+      )
+    }
+  }
+
   render() {
     return (
       <ScrollView>
@@ -76,12 +105,9 @@ export default class ManagerGasStation extends React.Component {
               {this.state.datosGasolinera.street_gas}
             </Text>
             {/* Horizontal line */}
-            <View
-              style={{
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-              }}
-            />
+            <View style={styles.separator}>
+
+            </View>
           </View>
           <View style={styles.containerServices}>
             <Text style={styles.plainBold}>
@@ -99,60 +125,6 @@ export default class ManagerGasStation extends React.Component {
                 size={15}
                 onPress={() => Alert.alert('Service: Wheelchair')}
               />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='cc-mastercard'
-                type='font-awesome'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Credit Card available')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='wind'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Air pump')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='water'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Water hose')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='wind'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Water hose')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='water'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Water hose')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='wind'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Water hose')}
-              />
             </ScrollView >
           </View>
           <View style={styles.containerSchedule}>
@@ -160,9 +132,8 @@ export default class ManagerGasStation extends React.Component {
               {'Schedule:'}
             </Text>
             <View style={styles.scheduleView}>
-              <Text style={styles.plain}>
-                {'Mon-Fri: 7:00-23:00\nSat-Sun: 9:00-15:00'}
-              </Text>
+                {/* {'Mon-Fri: 7:00-23:00\nSat-Sun: 9:00-15:00'} */}
+                {this.processTime()}
             </View>
           </View>
           <View style={styles.containerFuel}>
@@ -247,8 +218,8 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 25,
     fontWeight: 'bold',
-    paddingTop: '15%',
-    paddingBottom: '10%',
+    paddingTop: '10%',
+    // paddingBottom: '10%',
     color: 'black',
   },
   title: {
@@ -293,9 +264,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   separator: {
-    marginVertical: 30,
+    marginBottom: 5,
     height: 1,
-    width: '80%',
+    width: '100%',
   },
   //table
 
