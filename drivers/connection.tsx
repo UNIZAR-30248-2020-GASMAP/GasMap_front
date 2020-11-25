@@ -11,8 +11,27 @@ export const getGasStations = (coords) => {
         })
 }
 
+export const updateGasServices = (id: number, arrayNewServices: Array<String>) => {
+    return axios
+        .post(`https://gps-testing-server.herokuapp.com/updateGasServices`, null,
+        {
+            headers: { "Content-type": "application/json" },
+            params: {
+                id: id,
+                new_services: arrayNewServices
+            }
+        })
+        .then(res => {
+            console.log("Data: " + res)
+            return res.data
+        })
+        .catch(err => {
+            console.log("Error update services: " + err)
+        })
+}
+
 //Get a gas station with the given 'id'
-export const getGasStationsById = (id) => {
+export const getGasStationsById = (id: number) => {
     return axios
         .get(`https://gps-testing-server.herokuapp.com/listById?id_gas=${id}`, {
             headers: { "Content-type": "application/json" }

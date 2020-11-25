@@ -5,11 +5,20 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { Icon } from 'react-native-elements';
 
-import { getGasStationsById } from '../drivers/connection';
+import { getGasStationsById,updateGasServices } from '../drivers/connection';
 import Table from 'react-native-simple-table';
-import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts'
+import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
+import { ListItem, Avatar } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
 
 
+//nombreServicio: nombreIcono
+var servicesReference = '{ \
+  "tarjeta": "cc-mastercard", \
+  "minusvalidos": "wheelchair", \
+  "viento": "wind", \
+  "agua": "water" \
+}'
 
 const columnsFuel = [
   {
@@ -27,10 +36,10 @@ const columnsFuel = [
 
 
 
-const dataTable = [{ 'type': 'Diesel', 'price': '1.05' }, { 'type': 'Gas95', 'price': '1.10' },{ 'type': 'Gas98', 'price': '1.15' }]
+const dataTable = [{ 'type': 'Diesel', 'price': '1.05' }, { 'type': 'Gas95', 'price': '1.10' }, { 'type': 'Gas98', 'price': '1.15' }]
 //Contantes para grafica, updatear al leer de bd
 const dataX = [1, 2, 3, 4, 5];
-const data = [1.10, 1.12, 1.09,1.05,1.0];
+const data = [1.10, 1.12, 1.09, 1.05, 1.0];
 const contentInset = { top: 20, bottom: 20 }
 
 
@@ -52,27 +61,25 @@ export default class ManagerGasStation extends React.Component {
       this.setState({ datosGasolinera: data })
       console.log(this.state.datosGasolinera)
 
-       //cargar datos necesario en state
+      //cargar datos necesario en state
       //precios de fuel
-      this.setState({chart: []})
+      // this.setState({ chart: [] })
+      // updateGasServices(1000,["tarjeta","minusvalidos","viento","agua"])
     })
+
+    
 
   }
 
   //Muestra en filas separando por '\n'
-  processTime(){
+  processTime() {
     let timeGas = this.state.datosGasolinera.time_gas;
     console.log(this.state.datosGasolinera.time_gas);
-    
+
     if (timeGas !== undefined) {
       let arrayParts: Array<String> = timeGas.split('\\n');
-      let acum: String = ''
-      console.log("PARTES");
-      console.log(arrayParts);
-      console.log(arrayParts[0]);
-      console.log(arrayParts[2]);
-      return(
-        <View style={{backgroundColor:'white'}}>
+      return (
+        <View style={{ backgroundColor: 'white' }}>
           {
             arrayParts.map((parte, index) => (
               <Text style={styles.plain}>{parte}</Text>
@@ -80,7 +87,37 @@ export default class ManagerGasStation extends React.Component {
           }
         </View>
       )
-      
+    }
+  }
+
+  showServices = () => {
+    console.log("Show services STRING");
+    console.log(JSON.stringify(this.state.datosGasolinera.services_gas));
+    console.log("Show services");
+    var a = ['Hola1', 'hola2']
+    let listServices = this.state.datosGasolinera.services_gas;
+    let services = JSON.parse(servicesReference);
+    console.log(services.tarjeta)
+    if (listServices !== undefined) {
+      return (
+        listServices.map((service_name, l) => (
+          //Get value with property==service_name
+          // console.log(service_name)
+          <View style={styles.containerServices}>
+            <Text style={styles.plain}>{services.service_name}</Text>
+            <Icon
+              reverse                                                                         //¿LO SACA NEGRO? ¿COMO ACCEDER A VARIABLE DENTRO DE name={.....}?
+              style={styles.servicesIcon}
+              name= {services.service_name} //{services.service_name}
+              type='font-awesome'
+              color='black'
+              size={15}
+              onPress={() => Alert.alert('Service:' + service_name)}
+            />
+          </View>
+        )
+        )
+      )
     } else {
       return (
         <Text style={{ color: 'black' }}>Indefinido</Text>
@@ -92,7 +129,7 @@ export default class ManagerGasStation extends React.Component {
     return (
       <ScrollView>
         <View style={styles.container}>
-        <View style={styles.containerTop}>
+          <View style={styles.containerTop}>
             <Text style={styles.mainTitle}>Your Gas Station is:</Text>
             <Text style={styles.plainBold}>
               <Icon
@@ -115,8 +152,8 @@ export default class ManagerGasStation extends React.Component {
             </Text>
             <ScrollView horizontal={true} style={styles.servicesView}>
               {/* Prueba a llamar a los iconos dinamicamente */}
-              {/* {this.getIcons(nameIcons)} */}
-              <Icon
+              {this.showServices()}
+              {/* <Icon
                 reverse
                 style={styles.servicesIcon}
                 name='wheelchair'
@@ -125,6 +162,33 @@ export default class ManagerGasStation extends React.Component {
                 size={15}
                 onPress={() => Alert.alert('Service: Wheelchair')}
               />
+              <Icon
+                reverse
+                style={styles.servicesIcon}
+                name='cc-mastercard'
+                type='font-awesome'
+                color='black'
+                size={15}
+                onPress={() => Alert.alert('Service: Credit Card available')}
+              />
+              <Icon
+                reverse
+                style={styles.servicesIcon}
+                name='wind'
+                type='font-awesome-5'
+                color='black'
+                size={15}
+                onPress={() => Alert.alert('Service: Air pump')}
+              />
+              <Icon
+                reverse
+                style={styles.servicesIcon}
+                name='water'
+                type='font-awesome-5'
+                color='black'
+                size={15}
+                onPress={() => Alert.alert('Service: Water hose')}
+              /> */}
             </ScrollView >
           </View>
           <View style={styles.containerSchedule}>
@@ -132,8 +196,8 @@ export default class ManagerGasStation extends React.Component {
               {'Schedule:'}
             </Text>
             <View style={styles.scheduleView}>
-                {/* {'Mon-Fri: 7:00-23:00\nSat-Sun: 9:00-15:00'} */}
-                {this.processTime()}
+              {/* {'Mon-Fri: 7:00-23:00\nSat-Sun: 9:00-15:00'} */}
+              {this.processTime()}
             </View>
           </View>
           <View style={styles.containerFuel}>
@@ -182,11 +246,11 @@ export default class ManagerGasStation extends React.Component {
     );
   }
 
-  
+
 }
 
 // class CustomIcon extends React.Component{
-  
+
 
 // }
 
