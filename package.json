@@ -9,7 +9,15 @@
         "test": "jest --watchAll"
     },
     "jest": {
-        "preset": "jest-expo"
+        "preset": "jest-expo",
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "screens/**/*.tsx",
+            "!**/coverage/**",
+            "!**/node_modules/**",
+            "!**/babel.config.js",
+            "!**/jest.setup.js"
+        ]
     },
     "dependencies": {
         "@expo/vector-icons": "^10.0.0",
@@ -19,6 +27,8 @@
         "@react-navigation/drawer": "^5.10.5",
         "@react-navigation/native": "^5.7.3",
         "@react-navigation/stack": "^5.9.0",
+        "@types/jest": "^26.0.15",
+        "@types/react-test-renderer": "^17.0.0",
         "axios": "^0.21.0",
         "expo": "~39.0.2",
         "expo-asset": "~8.2.0",

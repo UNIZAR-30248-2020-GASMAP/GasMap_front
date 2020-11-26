@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correct Rendered 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+      },
+      Object {
+        "alignItems": "baseline",
+        "backgroundColor": "white",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000",
+        },
+        Object {
+          "color": "black",
+          "fontSize": 25,
+          "fontWeight": "bold",
+          "paddingBottom": "10%",
+          "paddingTop": "15%",
+        },
+      ]
+    }
+  >
+    Manual de usuario
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000",
+        },
+        Object {
+          "color": "black",
+          "fontSize": 20,
+          "fontWeight": "bold",
+          "paddingTop": "5%",
+        },
+      ]
+    }
+  >
+    Vista Principal
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000",
+        },
+        Object {
+          "color": "black",
+          "fontSize": 20,
+        },
+      ]
+    }
+  >
+    The main screen shows a map where some gas stations are displayed with a petrol pump icon like this one.
+    <Image
+      source={1}
+    />
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000",
+        },
+        Object {
+          "color": "black",
+          "fontSize": 20,
+          "fontWeight": "bold",
+          "paddingTop": "5%",
+        },
+      ]
+    }
+  >
+    Manager Login
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000",
+        },
+        Object {
+          "color": "black",
+          "fontSize": 20,
+        },
+      ]
+    }
+  >
+    A manager need a valid account that will be validated through a form, wich requires an email and password. The email needs a valid format and the password has to be 12 characters minimum.
+  </Text>
+</View>
+`;

@@ -11,3 +11,5 @@
 - yarn add react-native-svg-charts
 - yarn add jest-expo --dev
 - yarn add react-test-renderer --dev
+- yarn add @types/jest
+- yarn add @types/react-test-renderer
