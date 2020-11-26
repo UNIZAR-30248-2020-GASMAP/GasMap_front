@@ -10,15 +10,10 @@ import Table from 'react-native-simple-table';
 import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
 import { ListItem, Avatar } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
+import { servicesListToIcon } from '../models/listServicesToIcon'
 
 
-//nombreServicio: nombreIcono
-var servicesReference = '{ \
-  "tarjeta": "cc-mastercard", \
-  "minusvalidos": "wheelchair", \
-  "viento": "wind", \
-  "agua": "water" \
-}'
+
 
 const columnsFuel = [
   {
@@ -64,7 +59,6 @@ export default class ManagerGasStation extends React.Component {
       //cargar datos necesario en state
       //precios de fuel
       // this.setState({ chart: [] })
-      // updateGasServices(1000,["tarjeta","minusvalidos","viento","agua"])
     })
 
     
@@ -93,14 +87,16 @@ export default class ManagerGasStation extends React.Component {
   showServices = () => {
     console.log("Show services STRING");
     console.log(JSON.stringify(this.state.datosGasolinera.services_gas));
-    console.log("Show services");
+    console.log("Show services")
     var a = ['Hola1', 'hola2']
     let listServices = this.state.datosGasolinera.services_gas;
-    let services = JSON.parse(servicesReference);
-    console.log(services.tarjeta)
     if (listServices !== undefined) {
+      let services = JSON.parse(servicesListToIcon);
+      console.log("services.tarjeta");
+      console.log(services.tarjeta);
       return (
         listServices.map((service_name, l) => (
+          // let icon = services.{service_name}
           //Get value with property==service_name
           // console.log(service_name)
           <View style={styles.containerServices}>
@@ -108,7 +104,7 @@ export default class ManagerGasStation extends React.Component {
             <Icon
               reverse                                                                         //¿LO SACA NEGRO? ¿COMO ACCEDER A VARIABLE DENTRO DE name={.....}?
               style={styles.servicesIcon}
-              name= {services.service_name} //{services.service_name}
+              name= {services[service_name]}//{services.service_name} //{services.service_name}
               type='font-awesome'
               color='black'
               size={15}
