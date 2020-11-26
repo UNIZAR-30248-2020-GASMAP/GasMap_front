@@ -75,9 +75,6 @@ export default class ManagerGasStation extends React.Component {
       let services = JSON.parse(servicesListToIcon);
       return (
         listServices.map((service_name, l) => (
-          // let icon = services.{service_name}
-          //Get value with property==service_name
-          // console.log(service_name)
           <View style={styles.containerServices}>
             <Text style={styles.plain}>{services.service_name}</Text>
             <Icon
@@ -116,19 +113,15 @@ export default class ManagerGasStation extends React.Component {
           width: 140
         },
       ];
-      console.log("FUELS");
 
       let dataTable = [];
       const arrayFuels = this.state.datosGasolinera.fuels_gas;
       for (let i = 0; i < arrayFuels.length; i++) {
-        console.log(i);
         let objectPush = {
           'type': arrayFuels.[i].id_fuel,
           'price': arrayFuels.[i].price_fuel
         }
         dataTable.push(objectPush);
-        console.log("dataTable");
-        console.log(dataTable);
       }
       return (
         <Table height={100} columnWidth={60} columns={columnsFuel} dataSource={dataTable} />

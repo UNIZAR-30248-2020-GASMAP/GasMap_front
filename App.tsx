@@ -176,33 +176,6 @@ function manualScreenStack({ navigation }) {
   );
 }
 
-/*function gasStationScreenStack({ navigation, route }) {
-  return (
-    <Stack.Navigator
-      initialRouteName="GasStation"
-      screenOptions={{
-        headerLeft: ()=>
-          <BackDrawerStructure
-            navigationProps={navigation}
-          />,
-        headerStyle: {
-          backgroundColor: '#f4511e', //Set Header color
-        },
-        headerTintColor: '#fff', //Set Header text color
-        headerTitleStyle: {
-          fontWeight: 'bold', //Set Header text style
-        }
-      }}>
-      <Stack.Screen
-        name="GasStation"
-        component={GasStation}
-        options={{
-          title: 'GasStation', //Set Header Title
-        }}/>
-    </Stack.Navigator>
-  );
-}*/
-
 function managerLoginScreenStack({ navigation }) {
   return (
     <Stack.Navigator
@@ -232,44 +205,15 @@ function managerLoginScreenStack({ navigation }) {
         options={{
           title: 'ManagerGasStation', //Set Header Title
         }}/>
-        <Drawer.Screen
-          name="ManagerEditServices"
-          options={{ drawerLabel: 'Manager Edit Services (in process)' }}
-          component={ManagerEditServices}/>
+      <Stack.Screen
+        name="ManagerEditServices"
+        component={ManagerEditServices}
+        options={{
+          title: 'ManagerEditServices', //Set Header Title
+        }}/>
     </Stack.Navigator>
   );
 }
-
-
-// function managerEditServicesScreenStack({ navigation }) {
-//   return (
-//     <Stack.Navigator
-//       initialRouteName="ManagerEditServices"
-//       screenOptions={{
-//         headerLeft: ()=>
-//           <BackDrawerStructure
-//             navigationProps={navigation}
-//           />,
-//         headerStyle: {
-//           backgroundColor: '#f4511e', //Set Header color
-//         },
-//         headerTintColor: '#fff', //Set Header text color
-//         headerTitleStyle: {
-//           fontWeight: 'bold', //Set Header text style
-//         }
-//       }}>
-//       <Stack.Screen
-//         name="ManagerEditServices"
-//         component={ManagerEditServices}
-//         options={{
-//           title: 'ManagerEditServices', //Set Header Title
-          
-//         }}/>
-//     </Stack.Navigator>
-//   );
-// }
-
-
 
 function App() {
   return (

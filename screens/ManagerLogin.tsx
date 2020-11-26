@@ -3,18 +3,6 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'reac
 import { postLogin } from '../drivers/connection'
 
 
-//Validates that 'email' has a correct pattern
-export function validate(email: string, password: string) {
-  const mng = ManagerLogin
-  if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
-    mng.postLoginRequest(email, password)
-    return true
-  } else {
-    Alert.alert('Please, use a valid email')
-    return false
-  }
-}
-
 //Manager Login Screen
 export default class ManagerLogin extends React.Component {
   //datos estaticos para hacer pruebas
@@ -28,7 +16,7 @@ export default class ManagerLogin extends React.Component {
   }
 
   //Post request to the backend 
-  static async postLoginRequest(_email: string, _password: string) {
+  async postLoginRequest(_email: string, _password: string) {
     console.log("Voy a llamar a la funcion POST")
     const manager = {
       email: _email,
@@ -46,6 +34,17 @@ export default class ManagerLogin extends React.Component {
         this.props.navigation.navigate("ManagerGasStation", {idGasolinera: data.gas.id_gas})
       }
     })
+  }
+
+  //Validates that 'email' has a correct pattern
+  validate(email: string, password: string) {
+    if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
+      this.postLoginRequest(email, password)
+      return true
+    } else {
+      Alert.alert('Please, use a valid email')
+      return false
+    }
   }
 
   render(){
@@ -68,7 +67,7 @@ export default class ManagerLogin extends React.Component {
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({ password: text })} />
         </View>
-        <TouchableOpacity style={styles.loginBtn} onPress={() => validate(this.state.email, this.state.password)}>
+        <TouchableOpacity style={styles.loginBtn} onPress={() => this.validate(this.state.email, this.state.password)}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity>
