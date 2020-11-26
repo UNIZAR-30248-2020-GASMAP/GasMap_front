@@ -9,3 +9,5 @@
 - yarn add react-native-simple-table
 - yarn add react-native-svg
 - yarn add react-native-svg-charts
+- yarn add jest-expo --dev
+- yarn add react-test-renderer --dev
