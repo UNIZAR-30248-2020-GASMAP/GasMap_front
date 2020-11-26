@@ -4,7 +4,7 @@ import { Image, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 
 
-export default class TabTwoScreen extends React.Component {
+export default class Manual extends React.Component {
   render() {
     return (
       <View style={styles.container}>
