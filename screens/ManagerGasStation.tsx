@@ -32,7 +32,6 @@ export default class ManagerGasStation extends React.Component {
     super(props)
     this.state = {
       datosGasolinera: [],
-      chart: [1.10, 1.12, 1.9]
     };
   }
 
@@ -82,9 +81,9 @@ export default class ManagerGasStation extends React.Component {
           <View style={styles.containerServices}>
             <Text style={styles.plain}>{services.service_name}</Text>
             <Icon
-              reverse                                                                         //¿LO SACA NEGRO? ¿COMO ACCEDER A VARIABLE DENTRO DE name={.....}?
+              reverse
               style={styles.servicesIcon}
-              name={services[service_name]}//{services.service_name} //{services.service_name}
+              name={services[service_name]}
               type='font-awesome'
               color='black'
               size={15}
@@ -118,10 +117,10 @@ export default class ManagerGasStation extends React.Component {
         },
       ];
       console.log("FUELS");
-      
+
       let dataTable = [];
       const arrayFuels = this.state.datosGasolinera.fuels_gas;
-      for(let i=0;i<arrayFuels.length;i++){
+      for (let i = 0; i < arrayFuels.length; i++) {
         console.log(i);
         let objectPush = {
           'type': arrayFuels.[i].id_fuel,
@@ -134,11 +133,60 @@ export default class ManagerGasStation extends React.Component {
       return (
         <Table height={100} columnWidth={60} columns={columnsFuel} dataSource={dataTable} />
       )
-    }else{
+    } else {
       return (
         <Text style={{ color: 'black' }}>Indefinido</Text>
       )
     }
+  }
+
+  //Prints graphic with data read from state
+  printGraphic = () => {
+    return (
+      <View style={styles.pricesView}>
+        <YAxis
+          data={data}
+          contentInset={contentInset}
+          svg={{
+            fill: 'grey',
+            fontSize: 10,
+          }}
+          numberOfTicks={15}
+          formatLabel={(value) => `${value}€`}
+        />
+        <XAxis
+          style={{ marginHorizontal: -10 }}
+          data={[50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]}
+          formatLabel={(value, index) => `Day ${index}`}
+          contentInset={{ left: 10, right: 10 }}
+          svg={{ fontSize: 10, fill: 'black' }}
+
+        />
+        <LineChart
+          style={{ flex: 1, marginLeft: 16 }}
+          data={data}
+          svg={{ stroke: 'rgb(134, 65, 244)' }}
+          contentInset={contentInset}
+        >
+          <Grid />
+        </LineChart>
+      </View>
+    )
+  }
+
+  printIconEdit = (nameScreen) => {
+    return (
+      <Icon
+        reverse
+        // style={styles.servicesIcon}
+        name="pencil-square"
+        type='font-awesome'
+        color='blue'
+        size={15}
+        onPress={() => this.props.navigation.navigate(nameScreen, {datosGasolinera: this.state.datosGasolinera})}
+
+      />
+    )
   }
 
   render() {
@@ -170,6 +218,8 @@ export default class ManagerGasStation extends React.Component {
               {/* Prueba a llamar a los iconos dinamicamente */}
               {this.showServices()}
             </ScrollView >
+            {this.printIconEdit("ManagerEditServices")}
+
           </View>
           <View style={styles.containerSchedule}>
             <Text style={styles.plainBold}>
@@ -179,6 +229,7 @@ export default class ManagerGasStation extends React.Component {
               {/* {'Mon-Fri: 7:00-23:00\nSat-Sun: 9:00-15:00'} */}
               {this.processTime()}
             </View>
+            {this.printIconEdit()}
           </View>
           <View style={styles.containerFuel}>
             <Text style={styles.plainBold}>
@@ -186,40 +237,14 @@ export default class ManagerGasStation extends React.Component {
             </Text>
             <View style={styles.fuelView}>
               {this.processTableAndPrint()}
+              {this.printIconEdit()}
             </View>
           </View>
           <View style={styles.containerPrices}>
             <Text style={styles.plainBold}>
               {'Latest prices:'}
             </Text>
-            <View style={styles.pricesView}>
-              <YAxis
-                data={data}
-                contentInset={contentInset}
-                svg={{
-                  fill: 'grey',
-                  fontSize: 10,
-                }}
-                numberOfTicks={15}
-                formatLabel={(value) => `${value}€`}
-              />
-              <XAxis
-                style={{ marginHorizontal: -10 }}
-                data={[50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]}
-                formatLabel={(value, index) => `Day ${index}`}
-                contentInset={{ left: 10, right: 10 }}
-                svg={{ fontSize: 10, fill: 'black' }}
-
-              />
-              <LineChart
-                style={{ flex: 1, marginLeft: 16 }}
-                data={data}
-                svg={{ stroke: 'rgb(134, 65, 244)' }}
-                contentInset={contentInset}
-              >
-                <Grid />
-              </LineChart>
-            </View>
+            {this.printGraphic()}
           </View>
         </View>
       </ScrollView>

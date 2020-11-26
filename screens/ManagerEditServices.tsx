@@ -16,25 +16,19 @@ export default class ManagerEditServices extends React.Component {
   constructor(props: any) {
     super(props)
     this.state = {
-      idGasolinera: 1000,
+      idGasolinera: '',
       datosGasolinera: [],
       services: []
     };
   }
   async componentDidMount() {
-    //Obetener servicios pasados como parámetro
-
-    //De momento llamamos a backend
-    //Poner un Toast Loading mientras se realiza esta llamada para informar al usuario que se está cargando
-    //Llamar a la función del back para ver los datos de la gasolinera que se quiere
-    console.log("Voy a llamar a la funcion del back para obtener los datos de la gasolinera a partir del ID")
-    await getGasStationsById(this.state.idGasolinera).then(data => {
-      console.log("ROUTE");
-      console.log(this.props.route);
-      this.setState({ datosGasolinera: data })
-      console.log("DATOS GASOLINERA A PARTIR DEL ID")
-      console.log(this.state.datosGasolinera);
+    this.setState({
+      idGasolinera: this.props.route.params.datosGasolinera.id_gas,
+      datosGasolinera: this.props.route.params.datosGasolinera
     })
+    console.log("STATE")
+    console.log(this.state);
+    console.log(this.props);
 
 
   }
@@ -58,7 +52,6 @@ export default class ManagerEditServices extends React.Component {
                   <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
                 </ListItem.Content>
               </ListItem>
-              // <Text style={{color:'black'}} key={gas}>{gas}</Text>
             ))
           }
         </View>
@@ -102,42 +95,6 @@ export default class ManagerEditServices extends React.Component {
             </Text>
             <View style={styles.servicesView}>
               {this.showServices()}
-              {/* <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='wheelchair'
-                type='font-awesome'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Wheelchair')}
-              /> */}
-              {/* <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='cc-mastercard'
-                type='font-awesome'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Credit Card available')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='wind'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Air pump')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='water'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Water hose')}
-              /> */}
             </View>
           </View>
         </View>

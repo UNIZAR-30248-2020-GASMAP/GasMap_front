@@ -7,7 +7,7 @@ import { postLogin } from '../drivers/connection'
 export default class ManagerLogin extends React.Component {
   //datos estaticos para hacer pruebas
   state = {
-    email: "edu@edu.com",
+    email: "edu@edu.edu",
     password: "123456"
   }
 

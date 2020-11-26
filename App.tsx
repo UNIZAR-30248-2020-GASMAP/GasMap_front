@@ -232,14 +232,19 @@ function managerLoginScreenStack({ navigation }) {
         options={{
           title: 'ManagerGasStation', //Set Header Title
         }}/>
+        <Drawer.Screen
+          name="ManagerEditServices"
+          options={{ drawerLabel: 'Manager Edit Services (in process)' }}
+          component={ManagerEditServices}/>
     </Stack.Navigator>
   );
 }
 
-// function managerGasStationScreenStack({ navigation }) {
+
+// function managerEditServicesScreenStack({ navigation }) {
 //   return (
 //     <Stack.Navigator
-//       initialRouteName="ManagerGasStation"
+//       initialRouteName="ManagerEditServices"
 //       screenOptions={{
 //         headerLeft: ()=>
 //           <BackDrawerStructure
@@ -254,42 +259,15 @@ function managerLoginScreenStack({ navigation }) {
 //         }
 //       }}>
 //       <Stack.Screen
-//         name="ManagerGasStation"
-//         component={ManagerLogin}
+//         name="ManagerEditServices"
+//         component={ManagerEditServices}
 //         options={{
-//           title: 'ManagerGasStation', //Set Header Title
+//           title: 'ManagerEditServices', //Set Header Title
+          
 //         }}/>
 //     </Stack.Navigator>
 //   );
 // }
-
-function managerEditServicesScreenStack({ navigation }) {
-  return (
-    <Stack.Navigator
-      initialRouteName="ManagerEditServices"
-      screenOptions={{
-        headerLeft: ()=>
-          <BackDrawerStructure
-            navigationProps={navigation}
-          />,
-        headerStyle: {
-          backgroundColor: '#f4511e', //Set Header color
-        },
-        headerTintColor: '#fff', //Set Header text color
-        headerTitleStyle: {
-          fontWeight: 'bold', //Set Header text style
-        }
-      }}>
-      <Stack.Screen
-        name="ManagerEditServices"
-        component={ManagerEditServices}
-        options={{
-          title: 'ManagerEditServices', //Set Header Title
-          
-        }}/>
-    </Stack.Navigator>
-  );
-}
 
 
 
@@ -313,10 +291,6 @@ function App() {
           name="ManagerLogin"
           options={{ drawerLabel: 'Manager Login' }}
           component={managerLoginScreenStack}/>
-        <Drawer.Screen
-          name="ManagerEditServices"
-          options={{ drawerLabel: 'Manager Edit Services (in process)' }}
-          component={managerEditServicesScreenStack}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
