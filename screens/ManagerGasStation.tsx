@@ -5,7 +5,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { Icon } from 'react-native-elements';
 
-import { getGasStationsById,updateGasServices } from '../drivers/connection';
+import { getGasStationsById, updateGasServices } from '../drivers/connection';
 import Table from 'react-native-simple-table';
 import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
 import { ListItem, Avatar } from 'react-native-elements';
@@ -15,23 +15,11 @@ import { servicesListToIcon } from '../models/listServicesToIcon'
 
 
 
-const columnsFuel = [
-  {
-    title: 'Type',
-    dataIndex: 'type',
-    width: 105
-  },
-  {
-    title: 'Price/l',
-    dataIndex: 'price',
-    width: 140
-  },
-];
 
 
 
 
-const dataTable = [{ 'type': 'Diesel', 'price': '1.05' }, { 'type': 'Gas95', 'price': '1.10' }, { 'type': 'Gas98', 'price': '1.15' }]
+
 //Contantes para grafica, updatear al leer de bd
 const dataX = [1, 2, 3, 4, 5];
 const data = [1.10, 1.12, 1.09, 1.05, 1.0];
@@ -60,12 +48,9 @@ export default class ManagerGasStation extends React.Component {
       //precios de fuel
       // this.setState({ chart: [] })
     })
-
-    
-
   }
 
-  //Muestra en filas separando por '\n'
+  //Muestra en filas separando por '\\n'
   processTime() {
     let timeGas = this.state.datosGasolinera.time_gas;
     console.log(this.state.datosGasolinera.time_gas);
@@ -85,15 +70,10 @@ export default class ManagerGasStation extends React.Component {
   }
 
   showServices = () => {
-    console.log("Show services STRING");
-    console.log(JSON.stringify(this.state.datosGasolinera.services_gas));
-    console.log("Show services")
     var a = ['Hola1', 'hola2']
     let listServices = this.state.datosGasolinera.services_gas;
     if (listServices !== undefined) {
       let services = JSON.parse(servicesListToIcon);
-      console.log("services.tarjeta");
-      console.log(services.tarjeta);
       return (
         listServices.map((service_name, l) => (
           // let icon = services.{service_name}
@@ -104,7 +84,7 @@ export default class ManagerGasStation extends React.Component {
             <Icon
               reverse                                                                         //¿LO SACA NEGRO? ¿COMO ACCEDER A VARIABLE DENTRO DE name={.....}?
               style={styles.servicesIcon}
-              name= {services[service_name]}//{services.service_name} //{services.service_name}
+              name={services[service_name]}//{services.service_name} //{services.service_name}
               type='font-awesome'
               color='black'
               size={15}
@@ -115,6 +95,46 @@ export default class ManagerGasStation extends React.Component {
         )
       )
     } else {
+      return (
+        <Text style={{ color: 'black' }}>Indefinido</Text>
+      )
+    }
+  }
+
+  //Print table with gas and price data this.state.datosGasolinera.fuels_gas
+  processTableAndPrint = () => {
+    if (this.state.datosGasolinera.fuels_gas) {
+
+      const columnsFuel = [
+        {
+          title: 'Type',
+          dataIndex: 'type',
+          width: 105
+        },
+        {
+          title: 'Price/l',
+          dataIndex: 'price',
+          width: 140
+        },
+      ];
+      console.log("FUELS");
+      
+      let dataTable = [];
+      const arrayFuels = this.state.datosGasolinera.fuels_gas;
+      for(let i=0;i<arrayFuels.length;i++){
+        console.log(i);
+        let objectPush = {
+          'type': arrayFuels.[i].id_fuel,
+          'price': arrayFuels.[i].price_fuel
+        }
+        dataTable.push(objectPush);
+        console.log("dataTable");
+        console.log(dataTable);
+      }
+      return (
+        <Table height={100} columnWidth={60} columns={columnsFuel} dataSource={dataTable} />
+      )
+    }else{
       return (
         <Text style={{ color: 'black' }}>Indefinido</Text>
       )
@@ -149,42 +169,6 @@ export default class ManagerGasStation extends React.Component {
             <ScrollView horizontal={true} style={styles.servicesView}>
               {/* Prueba a llamar a los iconos dinamicamente */}
               {this.showServices()}
-              {/* <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='wheelchair'
-                type='font-awesome'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Wheelchair')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='cc-mastercard'
-                type='font-awesome'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Credit Card available')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='wind'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Air pump')}
-              />
-              <Icon
-                reverse
-                style={styles.servicesIcon}
-                name='water'
-                type='font-awesome-5'
-                color='black'
-                size={15}
-                onPress={() => Alert.alert('Service: Water hose')}
-              /> */}
             </ScrollView >
           </View>
           <View style={styles.containerSchedule}>
@@ -201,7 +185,7 @@ export default class ManagerGasStation extends React.Component {
               {'Available fuel:'}
             </Text>
             <View style={styles.fuelView}>
-              <Table height={100} columnWidth={60} columns={columnsFuel} dataSource={dataTable} />
+              {this.processTableAndPrint()}
             </View>
           </View>
           <View style={styles.containerPrices}>
