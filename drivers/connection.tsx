@@ -17,7 +17,7 @@ export const updateGasServices = (id: number, arrayNewServices: Array<String>) =
         {
             headers: { "Content-type": "application/json" },
             params: {
-                id: id,
+                id_gas: id,
                 new_services: arrayNewServices
             }
         })

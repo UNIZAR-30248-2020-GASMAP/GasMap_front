@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { Alert, Image, StyleSheet, ScrollView } from 'react-native';
+import { useState } from 'react';
+import { Alert, Image, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { Icon } from 'react-native-elements';
 
-import { getGasStationsById } from '../drivers/connection';
-import { Divider } from 'react-native-elements';
+import { updateGasServices } from '../drivers/connection';
 import { ListItem, Avatar } from 'react-native-elements'
+
+import { servicesListToIcon } from '../models/listServicesToIcon'
+import { color } from 'react-native-reanimated';
+
 
 
 
@@ -18,50 +22,116 @@ export default class ManagerEditServices extends React.Component {
     this.state = {
       idGasolinera: '',
       datosGasolinera: [],
-      services: []
+      newServices: [], //array to modify services
     };
   }
+
   async componentDidMount() {
     this.setState({
       idGasolinera: this.props.route.params.datosGasolinera.id_gas,
-      datosGasolinera: this.props.route.params.datosGasolinera
+      datosGasolinera: this.props.route.params.datosGasolinera,
+      newServices: this.props.route.params.datosGasolinera.services_gas,
+      // switchValue: switchValue,
+      // setSwitchValue: setSwitchValue
     })
     console.log("STATE")
     console.log(this.state);
     console.log(this.props);
-
-
   }
 
+  toggleSwitch1 = (service_name) => {
+    console.log(!this.state.switch1Value)
+    //Actual value
+    let value = this.state.newServices.includes(service_name)
+    // new value
+    let newValue = !value
+    // //Hacer push o delete del array de serviios en funcion del value
+    console.log("newVALUE: " + newValue);
+    if(newValue){
+    //   //If true add to array list, as default is a true, when click it first removes, so wont duplicate
+    //   //add service
+    console.log("arrayAux")
+    console.log(this.state.newServices.concat(service_name))
+      this.setState({ newServices: [...this.state.newServices, service_name] }) 
+    //   console.log(this.state);
+    }else{
+    //   //If false, delete from array list
+      let arrayAux = this.state.newServices.filter(item => item !== service_name)
+      console.log("arrayAux")
+      console.log(arrayAux)
+      this.setState({ newServices: arrayAux }) 
+    //   console.log(this.state);
+    }
+    //Change at end to not have problems
+    this.setState({switch1Value: !this.state.switch1Value})
+ }
+
+  
+
+
   showServices = () => {
-    console.log("Show services STRING");
+    console.log("Show services EDIT");
     console.log(JSON.stringify(this.state.datosGasolinera.services_gas));
-    console.log("Show services");
-    var a = ['Hola1', 'hola2']
+    console.log("Show services edit");
     let listServices = this.state.datosGasolinera.services_gas;
     if (listServices !== undefined) {
+      let services = JSON.parse(servicesListToIcon);
       return (
-        <View style={styles.containerListServices}>
-          {
-            listServices.map((i, l) => (
+        listServices.map((service_name: any, l: any) => (
+          
+          <View style={[styles.servicesViewRow]}>
+              <Icon
+                reverse
+                style={styles.servicesIcon}
+                name={services[service_name]}
+                type='font-awesome'
+                color='black'
+                size={15}
+                onPress={() => Alert.alert('Service:' + service_name)}
+              />
+              <Text style={styles.textRow}
+              >{service_name}</Text>
+              <Switch
+                style={{alignSelf: 'center'}}
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                thumbColor="#f5dd4b"
+                ios_backgroundColor="#3e3e3e"
+                thumbColor='orange'
+                onValueChange={() => {this.toggleSwitch1(service_name)}}
+                value={
+                    //return true if service_name is in array
+                    this.state.newServices.includes(service_name)
+                } 
+              />
 
-              <ListItem key={i} bottomDivider>
-                <Avatar source={{ uri: l.avatar_url }} />
-                <ListItem.Content>
-                  <ListItem.Title>{l.name}</ListItem.Title>
-                  <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
-                </ListItem.Content>
-              </ListItem>
-            ))
-          }
-        </View>
+          </View>
+        ))
       )
-
     } else {
       return (
         <Text style={{ color: 'black' }}>Indefinido</Text>
       )
     }
+  }
+
+
+  updateGasServices = async () => {
+    Alert.alert('En update');
+    //In newServices we havee the new services, update the array
+    this.setState({datosGasolinera: {...this.state.datosGasolinera, services_gas: this.state.newServices}});
+    console.log("this.state.datosGasolinera");
+    console.log(this.state.datosGasolinera);
+    await updateGasServices(this.state.datosGasolinera.id_gas, this.state.newServices).then(data => {
+      console.log("DATA UPDATE")
+      console.log(data)
+      if (data == undefined) {
+        Alert.alert('Not update');
+        this.props.navigation.navigate("ManagerGasStation");
+      } else {
+        Alert.alert('Update OK');
+        this.props.navigation.navigate("ManagerGasStation");
+      }
+    })
   }
 
   render() {
@@ -98,17 +168,15 @@ export default class ManagerEditServices extends React.Component {
             </View>
           </View>
         </View>
+        <TouchableOpacity style={styles.loginBtn} onPress={() => this.updateGasServices()}>
+          <Text style={styles.loginText}>Update services</Text>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
 
 
 }
-
-// class CustomIcon extends React.Component{
-
-
-// }
 
 const styles = StyleSheet.create({
   container: {
@@ -120,15 +188,27 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   containerServices: {
-    // backgroundColor: 'white',
     alignItems: 'flex-start',
-    backgroundColor: 'red'
-
-    // flexDirection: 'row'
+    backgroundColor: 'yellow'
   },
   containerListServices: {
     alignItems: 'flex-start',
-    backgroundColor: 'red'
+    backgroundColor: 'white'
+  },
+  servicesView: {
+    paddingTop: '2.5%',
+    backgroundColor: 'white',
+    width: '100%',
+  },
+  servicesViewRow: {
+    paddingTop: '2.5%',
+    backgroundColor: 'white',
+    width: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: 'orange',
+    color: 'black',
+    flexDirection:'row',
+    justifyContent: 'space-between'
   },
   mainTitle: {
     fontSize: 25,
@@ -142,6 +222,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingTop: '0%',
     color: 'black',
+  },
+  textRow:{
+    color: 'black',
+    fontSize: 25,
+    alignSelf:'center', 
+    paddingTop: 10
   },
   plain: {
     fontSize: 17,
@@ -160,4 +246,17 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  loginBtn: {
+    width: "80%",
+    backgroundColor: "#fb5b5a",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    marginBottom: 10
+  },
+  loginText: {
+    color: "white"
+  }
 });
