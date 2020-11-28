@@ -32,6 +32,7 @@ export default class ManagerGasStation extends React.Component {
     super(props)
     this.state = {
       datosGasolinera: [],
+      horario:""
     };
   }
 
@@ -42,10 +43,9 @@ export default class ManagerGasStation extends React.Component {
     await getGasStationsById(this.props.route.params.idGasolinera).then(data => {
       this.setState({ datosGasolinera: data })
       console.log(this.state.datosGasolinera)
-
-      //cargar datos necesario en state
-      //precios de fuel
-      // this.setState({ chart: [] })
+    })
+    this.setState({
+      horario: JSON.stringify(this.state.datosGasolinera.time_gas).replaceAll("\\\\n","\n").replaceAll("\"","").replaceAll(" ", "\t").replaceAll("Fri:\t","Fri:\t\t").replaceAll("-","\t-\t")
     })
   }
 
@@ -220,7 +220,9 @@ export default class ManagerGasStation extends React.Component {
             </Text>
             <View style={styles.scheduleView}>
               {/* {'Mon-Fri: 7:00-23:00\nSat-Sun: 9:00-15:00'} */}
-              {this.processTime()}
+              <Text style={styles.plain}>
+                {this.state.horario}
+              </Text>
             </View>
             {this.printIconEdit()}
           </View>
