@@ -8,7 +8,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -21,11 +22,12 @@ import GasStation from './screens/GasStation';
 import ManagerLogin from './screens/ManagerLogin';
 import ManagerEditServices from './screens/ManagerEditServices';
 import ManagerGasStation from './screens/ManagerGasStation';
+import { Icon } from 'react-native-elements';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const NavigationDrawerStructure = (props)=> {
+const NavigationDrawerStructure = (props) => {
   //Structure for the navigatin Drawer
   const toggleDrawer = () => {
     //Props to open/close the drawer
@@ -33,8 +35,8 @@ const NavigationDrawerStructure = (props)=> {
   };
 
   return (
-    <View style={{ flexDirection: 'row'}}>
-      <TouchableOpacity onPress={()=> toggleDrawer()}>
+    <View style={{ flexDirection: 'row' }}>
+      <TouchableOpacity onPress={() => toggleDrawer()}>
         {/*Donute Button Image */}
         <Image
           source={require('./assets/images/drawerWhite.png')}
@@ -49,7 +51,7 @@ const NavigationDrawerStructure = (props)=> {
   );
 }
 
-const ProfileDrawerStructure = (props)=> {
+const ProfileDrawerStructure = (props) => {
   //Structure for the navigatin Drawer
   const toggleLogin = () => {
     //Props to open/close the drawer
@@ -58,7 +60,7 @@ const ProfileDrawerStructure = (props)=> {
 
   return (
     <View>
-      <TouchableOpacity onPress={()=> toggleLogin()}>
+      <TouchableOpacity onPress={() => toggleLogin()}>
         <Image
           source={require('./assets/images/profile_icon.png')}
           style={{
@@ -72,7 +74,23 @@ const ProfileDrawerStructure = (props)=> {
   );
 }
 
-const BackDrawerStructure = (props)=> {
+const LogOutDrawerStructure = (props) => {
+  return (
+    <View>
+        <Icon
+          reverse
+          // style={styles.servicesIcon}
+          name="sign-out"
+          type='font-awesome'
+          color='black'
+          size={15}
+          onPress={() => {Alert.alert("Sign out"); props.navigationProps.navigate('ManagerLogin', {screen:"ManagerLogin"});}}
+        />
+    </View>
+  );
+}
+
+const BackDrawerStructure = (props) => {
   //Structure for the navigatin Drawer
   const toggleBack = () => {
     //Props to open/close the drawer
@@ -81,7 +99,7 @@ const BackDrawerStructure = (props)=> {
 
   return (
     <View>
-      <TouchableOpacity onPress={()=> toggleBack()}>
+      <TouchableOpacity onPress={() => toggleBack()}>
         <Image
           source={require('./assets/images/back.png')}
           style={{
@@ -97,38 +115,38 @@ const BackDrawerStructure = (props)=> {
 
 function mainScreenStack({ navigation }) {
   return (
-      <Stack.Navigator initialRouteName="MainScreen"
-        screenOptions={{
-          headerLeft: ()=>
-            <NavigationDrawerStructure
-              navigationProps={navigation}
-            />,
-          headerRight: ()=>
-            <ProfileDrawerStructure
-              navigationProps={navigation}
-            />,
-          headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
-          },
-          headerTintColor: '#fff', //Set Header text color
-          headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
-          }
+    <Stack.Navigator initialRouteName="MainScreen"
+      screenOptions={{
+        headerLeft: () =>
+          <NavigationDrawerStructure
+            navigationProps={navigation}
+          />,
+        headerRight: () =>
+          <ProfileDrawerStructure
+            navigationProps={navigation}
+          />,
+        headerStyle: {
+          backgroundColor: '#f4511e', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        }
+      }}
+    >
+      <Stack.Screen
+        name="MainScreen"
+        component={MainScreen}
+        options={{
+          title: 'MainScreen', //Set Header Title
         }}
-      >
-        <Stack.Screen
-          name="MainScreen"
-          component={MainScreen}
-          options={{
-            title: 'MainScreen', //Set Header Title
-          }}
-        />
-        <Stack.Screen
-          name="GasStation"
-          component={GasStation}
-          options={{
-            title: 'GasStation', //Set Header Title
-            headerLeft: ()=>
+      />
+      <Stack.Screen
+        name="GasStation"
+        component={GasStation}
+        options={{
+          title: 'GasStation', //Set Header Title
+          headerLeft: () =>
             <BackDrawerStructure
               navigationProps={navigation}
             />,
@@ -139,9 +157,9 @@ function mainScreenStack({ navigation }) {
           headerTitleStyle: {
             fontWeight: 'bold', //Set Header text style
           }
-          }}
-        />
-      </Stack.Navigator>
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
@@ -150,11 +168,11 @@ function manualScreenStack({ navigation }) {
     <Stack.Navigator
       initialRouteName="Manual"
       screenOptions={{
-        headerLeft: ()=>
+        headerLeft: () =>
           <NavigationDrawerStructure
             navigationProps={navigation}
           />,
-        headerRight: ()=>
+        headerRight: () =>
           <ProfileDrawerStructure
             navigationProps={navigation}
           />,
@@ -171,7 +189,7 @@ function manualScreenStack({ navigation }) {
         component={Manual}
         options={{
           title: 'Manual', //Set Header Title
-        }}/>
+        }} />
     </Stack.Navigator>
   );
 }
@@ -181,7 +199,7 @@ function managerLoginScreenStack({ navigation }) {
     <Stack.Navigator
       initialRouteName="ManagerLogin"
       screenOptions={{
-        headerLeft: ()=>
+        headerLeft: () =>
           <BackDrawerStructure
             navigationProps={navigation}
           />,
@@ -198,19 +216,25 @@ function managerLoginScreenStack({ navigation }) {
         component={ManagerLogin}
         options={{
           title: 'ManagerLogin', //Set Header Title
-        }}/>
+        }} />
       <Stack.Screen
         name="ManagerGasStation"
         component={ManagerGasStation}
+
         options={{
           title: 'ManagerGasStation', //Set Header Title
-        }}/>
+          headerRight: () =>
+            <LogOutDrawerStructure
+              navigationProps={navigation}
+            />
+        }}
+      />
       <Stack.Screen
         name="ManagerEditServices"
         component={ManagerEditServices}
         options={{
           title: 'ManagerEditServices', //Set Header Title
-        }}/>
+        }} />
     </Stack.Navigator>
   );
 }
@@ -226,15 +250,15 @@ function App() {
         <Drawer.Screen
           name="Main Screen"
           options={{ drawerLabel: 'Main Screen' }}
-          component={mainScreenStack}/>
+          component={mainScreenStack} />
         <Drawer.Screen
           name="ManualPage"
           options={{ drawerLabel: 'Manual' }}
           component={manualScreenStack} />
         <Drawer.Screen
-          name="ManagerLogin"
+          name="Manager"
           options={{ drawerLabel: 'Manager Login' }}
-          component={managerLoginScreenStack}/>
+          component={managerLoginScreenStack} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
