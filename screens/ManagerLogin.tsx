@@ -28,7 +28,6 @@ export default class ManagerLogin extends React.Component {
       if (data == undefined) {
         Alert.alert('Username or password incorrect');
       } else {
-        Alert.alert('Login correct');
         console.log("DATA: postLogin" + JSON.stringify(data));
         console.log("ID_GAS: " + data.gas.id_gas);
         this.props.navigation.navigate("ManagerGasStation", {idGasolinera: data.gas.id_gas})

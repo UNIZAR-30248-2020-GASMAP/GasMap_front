@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correct Rendered 1`] = `
+<RCTScrollView>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Object {
+            "backgroundColor": "white",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "paddingBottom": "1%",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 25,
+                "fontWeight": "bold",
+                "paddingBottom": "1%",
+                "paddingTop": "5%",
+              },
+            ]
+          }
+        >
+          Your Gas Station is:
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 23,
+                "fontWeight": "900",
+                "paddingBottom": "5%",
+                "paddingLeft": "5%",
+                "paddingTop": "5%",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "overflow": "hidden",
+              }
+            }
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "transparent",
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <Text />
+              </View>
+            </View>
+          </View>
+        </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#fff",
+              },
+              Object {
+                "borderBottomColor": "black",
+                "borderBottomWidth": 1,
+              },
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Object {
+              "alignItems": "flex-start",
+              "backgroundColor": "yellow",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 23,
+                "fontWeight": "900",
+                "paddingBottom": "5%",
+                "paddingLeft": "5%",
+                "paddingTop": "5%",
+              },
+            ]
+          }
+        >
+          Services
+        </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#fff",
+              },
+              Object {
+                "backgroundColor": "white",
+                "paddingTop": "2.5%",
+                "width": "100%",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000",
+                },
+                Object {
+                  "color": "black",
+                },
+              ]
+            }
+          >
+            Indefinido
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#fb5b5a",
+          "borderRadius": 25,
+          "height": 50,
+          "justifyContent": "center",
+          "marginBottom": 10,
+          "marginTop": 40,
+          "opacity": 1,
+          "width": "80%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000",
+            },
+            Object {
+              "color": "white",
+            },
+          ]
+        }
+      >
+        Update services
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
