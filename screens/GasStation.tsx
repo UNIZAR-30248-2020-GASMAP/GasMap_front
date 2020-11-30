@@ -60,7 +60,10 @@ export default class GasStation extends React.Component {
       console.log(this.state.datosGasolinera)
     })
     this.setState({
-      horario: JSON.stringify(this.state.datosGasolinera.time_gas).replaceAll("\\\\n","\n").replaceAll("\"","").replaceAll(" ", "\t").replaceAll("Fri:\t","Fri:\t\t").replaceAll("-","\t-\t")
+      horario: JSON.stringify(this.state.datosGasolinera.time_gas)
+      .replace(/\\\\n/g,"\n").replace(/\"/g,"").replace(/ /g, "\t")
+      .replace(/Fri:/g,"Fri:  ").replace(/-/g,"\t-\t")
+      .replace(/Sat:/g,"Sat: ")
     })
     /*this.fillDataTable();
     console.log(this.state.dataTable)
@@ -415,7 +418,7 @@ const styles = StyleSheet.create({
   plainBold: {
     fontSize: 23,
     color: 'black',
-    fontWeight: "900",
+    fontWeight: "bold",
     paddingBottom: '5%',
     paddingTop: '5%',
     paddingLeft: '5%'

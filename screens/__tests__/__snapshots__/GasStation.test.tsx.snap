@@ -116,7 +116,7 @@ exports[`Correct Rendered 1`] = `
               Object {
                 "color": "black",
                 "fontSize": 23,
-                "fontWeight": "900",
+                "fontWeight": "bold",
                 "paddingBottom": "5%",
                 "paddingLeft": "5%",
                 "paddingTop": "5%",
@@ -176,7 +176,7 @@ exports[`Correct Rendered 1`] = `
               Object {
                 "color": "black",
                 "fontSize": 23,
-                "fontWeight": "900",
+                "fontWeight": "bold",
                 "paddingBottom": "5%",
                 "paddingLeft": "5%",
                 "paddingTop": "5%",
@@ -239,7 +239,7 @@ exports[`Correct Rendered 1`] = `
               Object {
                 "color": "black",
                 "fontSize": 23,
-                "fontWeight": "900",
+                "fontWeight": "bold",
                 "paddingBottom": "5%",
                 "paddingLeft": "5%",
                 "paddingTop": "5%",
@@ -299,7 +299,7 @@ exports[`Correct Rendered 1`] = `
               Object {
                 "color": "black",
                 "fontSize": 23,
-                "fontWeight": "900",
+                "fontWeight": "bold",
                 "paddingBottom": "5%",
                 "paddingLeft": "5%",
                 "paddingTop": "5%",
