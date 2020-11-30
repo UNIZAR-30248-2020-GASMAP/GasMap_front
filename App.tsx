@@ -21,6 +21,7 @@ import Manual from './screens/Manual';
 import GasStation from './screens/GasStation';
 import ManagerLogin from './screens/ManagerLogin';
 import ManagerEditServices from './screens/ManagerEditServices';
+import ManagerEditSchedule from './screens/ManagerEditSchedule';
 import ManagerGasStation from './screens/ManagerGasStation';
 import { Icon } from 'react-native-elements';
 
@@ -90,11 +91,37 @@ const LogOutDrawerStructure = (props) => {
   );
 }
 
-const BackDrawerStructure = (props) => {
+//StackMain
+const BackDrawerStructureMain = (props) => {
   //Structure for the navigatin Drawer
   const toggleBack = () => {
     //Props to open/close the drawer
-    props.navigationProps.navigate('MainScreen');
+    // props.navigationProps.navigate('MainScreen');
+    props.navigationProps.navigate("MainScreen");
+  };
+
+  return (
+    <View>
+      <TouchableOpacity onPress={() => toggleBack()}>
+        <Image
+          source={require('./assets/images/back.png')}
+          style={{
+            width: 25,
+            height: 25,
+            marginLeft: 5
+          }}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+}
+const BackDrawerStructureManager = (props) => {
+  //Structure for the navigatin Drawer
+  const toggleBack = () => {
+    //Props to open/close the drawer
+    // props.navigationProps.navigate('MainScreen');
+    console.log(props.navigationProps);
+    props.navigationProps.navigate("ManagerGasStation");
   };
 
   return (
@@ -147,7 +174,7 @@ function mainScreenStack({ navigation }) {
         options={{
           title: 'GasStation', //Set Header Title
           headerLeft: () =>
-            <BackDrawerStructure
+            <BackDrawerStructureMain
               navigationProps={navigation}
             />,
           headerStyle: {
@@ -199,10 +226,10 @@ function managerLoginScreenStack({ navigation }) {
     <Stack.Navigator
       initialRouteName="ManagerLogin"
       screenOptions={{
-        headerLeft: () =>
-          <BackDrawerStructure
-            navigationProps={navigation}
-          />,
+        // headerLeft: () =>
+        //   <BackDrawerStructureManager
+        //     navigationProps={navigation}
+        //   />,
         headerStyle: {
           backgroundColor: '#f4511e', //Set Header color
         },
@@ -215,12 +242,15 @@ function managerLoginScreenStack({ navigation }) {
         name="ManagerLogin"
         component={ManagerLogin}
         options={{
+          headerLeft: () =>
+          <NavigationDrawerStructure
+            navigationProps={navigation}
+          />,
           title: 'ManagerLogin', //Set Header Title
         }} />
       <Stack.Screen
         name="ManagerGasStation"
         component={ManagerGasStation}
-
         options={{
           title: 'ManagerGasStation', //Set Header Title
           headerRight: () =>
@@ -234,6 +264,12 @@ function managerLoginScreenStack({ navigation }) {
         component={ManagerEditServices}
         options={{
           title: 'ManagerEditServices', //Set Header Title
+        }} />
+      <Stack.Screen
+        name="ManagerEditSchedule"
+        component={ManagerEditSchedule}
+        options={{
+          title: 'ManagerEditSchedule', //Set Header Title
         }} />
     </Stack.Navigator>
   );

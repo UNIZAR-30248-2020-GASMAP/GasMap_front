@@ -5,7 +5,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { Icon } from 'react-native-elements';
 
-import { getGasStationsById, updateGasServices } from '../drivers/connection';
+import { getGasStationsById, updateGasServices, allServices } from '../drivers/connection';
 import Table from 'react-native-simple-table';
 import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
 import { ListItem, Avatar } from 'react-native-elements';
@@ -32,7 +32,8 @@ export default class ManagerGasStation extends React.Component {
     super(props)
     this.state = {
       datosGasolinera: [],
-      horario:""
+      allServices: [],
+      horario: ""
     };
   }
 
@@ -44,9 +45,15 @@ export default class ManagerGasStation extends React.Component {
       this.setState({ datosGasolinera: data })
       console.log(this.state.datosGasolinera)
     })
-    this.setState({
-      horario: JSON.stringify(this.state.datosGasolinera.time_gas).replaceAll("\\\\n","\n").replaceAll("\"","").replaceAll(" ", "\t").replaceAll("Fri:\t","Fri:\t\t").replaceAll("-","\t-\t")
+    await allServices().then(data => {
+      console.log("All services")
+      console.log(data)
+      this.setState({allServices: data})
     })
+    this.setState({
+      horario: JSON.stringify(this.state.datosGasolinera.time_gas).replaceAll("\\\\n", "\n").replaceAll("\"", "").replaceAll(" ", "\t").replaceAll("Fri:\t", "Fri:\t\t").replaceAll("-", "\t-\t")
+    })
+
   }
 
   //Muestra en filas separando por '\\n'
@@ -176,7 +183,7 @@ export default class ManagerGasStation extends React.Component {
         type='font-awesome'
         color='blue'
         size={15}
-        onPress={() => this.props.navigation.navigate(nameScreen, {datosGasolinera: this.state.datosGasolinera})}
+        onPress={() => this.props.navigation.navigate(nameScreen, { datosGasolinera: this.state.datosGasolinera, allServices: this.state.allServices })}
 
       />
     )
@@ -224,7 +231,7 @@ export default class ManagerGasStation extends React.Component {
                 {this.state.horario}
               </Text>
             </View>
-            {this.printIconEdit()}
+            {this.printIconEdit("ManagerEditSchedule")}
           </View>
           <View style={styles.containerFuel}>
             <Text style={styles.plainBold}>
