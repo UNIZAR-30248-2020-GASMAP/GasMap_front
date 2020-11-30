@@ -14,12 +14,6 @@ import { servicesListToIcon } from '../models/listServicesToIcon'
 
 
 
-
-
-
-
-
-
 //Contantes para grafica, updatear al leer de bd
 const dataX = [1, 2, 3, 4, 5];
 const data = [1.10, 1.12, 1.09, 1.05, 1.0];
@@ -45,7 +39,10 @@ export default class ManagerGasStation extends React.Component {
       console.log(this.state.datosGasolinera)
     })
     this.setState({
-      horario: JSON.stringify(this.state.datosGasolinera.time_gas).replaceAll("\\\\n","\n").replaceAll("\"","").replaceAll(" ", "\t").replaceAll("Fri:\t","Fri:\t\t").replaceAll("-","\t-\t")
+      horario: JSON.stringify(this.state.datosGasolinera.time_gas)
+      .replace(/\\\\n/g,"\n").replace(/\"/g,"").replace(/ /g, "\t")
+      .replace(/Fri:/g,"Fri:  ").replace(/-/g,"\t-\t")
+      .replace(/Sat:/g,"Sat: ")
     })
   }
 
