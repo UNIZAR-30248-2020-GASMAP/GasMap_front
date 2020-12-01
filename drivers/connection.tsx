@@ -75,3 +75,22 @@ export const postLogin = (manager) => {
             console.log("Error login: " + err)
         })
 }
+
+//Post to the backend the new schedule
+export const postSchedule = (id: number, schedule: string) => {
+    return axios
+        .post(`https://gps-testing-server.herokuapp.com/updateGasTime`, null,
+        {
+            headers: { "Content-type": "application/json" },
+            params: {
+                id_gas: id,
+                new_time: schedule
+            }
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+            console.log("Error updating schedule: " + err)
+        })
+}

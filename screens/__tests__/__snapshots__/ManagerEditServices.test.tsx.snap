@@ -118,7 +118,7 @@ exports[`Correct Rendered 1`] = `
             },
             Object {
               "alignItems": "flex-start",
-              "backgroundColor": "yellow",
+              "backgroundColor": "white",
             },
           ]
         }
@@ -140,7 +140,7 @@ exports[`Correct Rendered 1`] = `
             ]
           }
         >
-          Services
+          Available services
         </Text>
         <View
           style={
@@ -155,22 +155,7 @@ exports[`Correct Rendered 1`] = `
               },
             ]
           }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "color": "#000",
-                },
-                Object {
-                  "color": "black",
-                },
-              ]
-            }
-          >
-            Indefinido
-          </Text>
-        </View>
+        />
       </View>
     </View>
     <View
@@ -186,7 +171,7 @@ exports[`Correct Rendered 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#fb5b5a",
+          "backgroundColor": "#f4511e",
           "borderRadius": 25,
           "height": 50,
           "justifyContent": "center",
