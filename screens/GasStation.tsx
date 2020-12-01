@@ -6,7 +6,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View,  } from '../components/Themed';
 import { Icon, Button } from 'react-native-elements';
 
-import { getGasStationsById } from '../drivers/connection';
+import { getGasStationsById, updatePrice } from '../drivers/connection';
 import Table from 'react-native-simple-table';
 import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts'
 import { servicesListToIcon } from '../models/listServicesToIcon'
@@ -192,6 +192,31 @@ export default class GasStation extends React.Component {
     })
   }
 
+  updatePrice = async () => {
+    const datos = {
+      fuel:this.state.fuel,
+      id_gas:this.props.route.params.idGasolinera,
+      price: this.state.price.replace(",",".")
+    }
+    console.log(datos)
+    await updatePrice(datos).then(data => {
+      if(data=="Changed correctly"){
+        Alert.alert("Success!","The price has been updated correctly!",[{text:"OK",onPress: () => this.changeUpdateModalState()}]);
+      }
+      else if(data=="Cannot change to that price"){
+        Alert.alert("Denied:","The percentage of the price change was too high. If you think that is an error please send a report ticket.",[{text:"OK",onPress: () => this.changeUpdateModalState()}]);
+      }
+      else if(data=="Cannot change until tomorrow"){
+        Alert.alert("Denied:","The price was already updated today. It can not be changed until tomorrow",[{text:"OK",onPress: () => this.changeUpdateModalState()}]);
+      }
+      else if(data=="Fuel not found"){
+        Alert.alert("Denied:","Please enter a valid fuel type for this gas!",[{text:"OK",onPress: () => this.changeUpdateModalState()}])
+      }
+      else{
+        Alert.alert("ERROR:","General ERROR: The price was not updated. Please try again later.",[{text:"OK",onPress: () => this.changeUpdateModalState()}])
+      }
+    })
+  }
 
   render() {
     return (
@@ -260,13 +285,13 @@ export default class GasStation extends React.Component {
                       onValueChange={(itemValue, itemIndex) => this.setFuel(itemValue)}
                     >
                       <Picker.Item label="Gas" value="Gas" />
-                      <Picker.Item label="Gas Premium" value="Gasp" />
+                      <Picker.Item label="Gas Premium" value="Gas Premium" />
                       <Picker.Item label="Diesel" value="Diesel" />
-                      <Picker.Item label="Diesel Premium" value="Dieselp" />
+                      <Picker.Item label="Diesel Premium" value="Diesel Premium" />
                     </Picker>
                     <TextInput
                       style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, textAlign:'center', fontSize:22 }}
-                      keyboardType={'decimal-pad'}
+                      keyboardType={'numeric'}
                       onChangeText={text => this.setPrice(text)}
                       value={this.state.price}
                     />
@@ -275,7 +300,7 @@ export default class GasStation extends React.Component {
                         containerStyle={styles.button}
                         title="Save"
                         onPress={() => {
-                          this.changeUpdateModalState();
+                          this.updatePrice();
                         }}
                       />
                       <Text>{"\t"}</Text>

@@ -75,3 +75,45 @@ export const postLogin = (manager) => {
             console.log("Error login: " + err)
         })
 }
+
+//Post to the backend to update a price from the user view
+export const updatePrice = (data) => {
+    return axios
+        .post(`https://gps-testing-server.herokuapp.com/updatePrice`, null,
+        {
+            headers: { "Content-type": "application/json" },
+            params: {
+                fuel: data.fuel,
+                id_gas: data.id_gas,
+                price: data.price
+            }
+        })
+        .then(res => {
+            console.log("Data: " + res)
+            return res.data
+        })
+        .catch(err => {
+            console.log("Error login: " + err)
+        })
+}
+
+//Post to the backend to update a price from the user view
+export const updatePriceMan = (data) => {
+    return axios
+        .post(`https://gps-testing-server.herokuapp.com/updatePriceMan`, null,
+        {
+            headers: { "Content-type": "application/json" },
+            params: {
+                fuel: data.fuel,
+                id_gas: data.id_gas,
+                price: data.price
+            }
+        })
+        .then(res => {
+            console.log("Data: " + res)
+            return res.data
+        })
+        .catch(err => {
+            console.log("Error login: " + err)
+        })
+}

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Alert, Image, StyleSheet, ScrollView } from 'react-native';
+import { Alert, Image, StyleSheet, ScrollView, Modal, Picker, TextInput } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
-import { Icon } from 'react-native-elements';
+import { Icon, Button } from 'react-native-elements';
 
-import { getGasStationsById, updateGasServices, allServices } from '../drivers/connection';
+import { getGasStationsById, updateGasServices, allServices, updatePriceMan } from '../drivers/connection';
 import Table from 'react-native-simple-table';
 import { LineChart, XAxis, YAxis, Grid } from 'react-native-svg-charts';
 import { ListItem, Avatar } from 'react-native-elements';
@@ -27,7 +27,10 @@ export default class ManagerGasStation extends React.Component {
     this.state = {
       datosGasolinera: [],
       allServices: [],
-      horario: ""
+      horario: "",
+      modalUpdateVisible: false,
+      fuel:"Gas",
+      price:""
     };
   }
 
@@ -171,19 +174,71 @@ export default class ManagerGasStation extends React.Component {
     )
   }
 
-  printIconEdit = (nameScreen) => {
-    return (
-      <Icon
-        reverse
-        // style={styles.servicesIcon}
-        name="pencil-square"
-        type='font-awesome'
-        color='blue'
-        size={15}
-        onPress={() => this.props.navigation.navigate(nameScreen, { datosGasolinera: this.state.datosGasolinera, allServices: this.state.allServices })}
+  changeUpdateModalState =() =>{
+    this.setState({
+      modalUpdateVisible: !this.state.modalUpdateVisible
+    })
+  }
+  setFuel = (fuelType) => {
+    this.setState({
+      fuel: fuelType
+    })
+  }
 
-      />
-    )
+  setPrice = (price) => {
+    this.setState({
+      price: price
+    })
+  }
+
+  updatePrice = async () => {
+    const datos = {
+      fuel:this.state.fuel,
+      id_gas:this.props.route.params.idGasolinera,
+      price: this.state.price.replace(",",".")
+    }
+    await updatePriceMan(datos).then(data => {
+      if(data=="Changed correctly"){
+        Alert.alert("Success!","The price has been updated correctly!",[{text:"OK",onPress: () => this.changeUpdateModalState()}]);
+      }
+      else if(data=="Fuel added!"){
+        Alert.alert("Success!","You succesfully added a new type of fuel!",[{text:"OK",onPress: () => this.changeUpdateModalState()}]);
+      }
+      else{
+        Alert.alert("ERROR: ","General ERROR: The price was not updated. Please try again later.",[{text:"OK",onPress: () => this.changeUpdateModalState()}])
+      }
+    })
+  }
+
+  printIconEdit = (nameScreen) => {
+    if(nameScreen=="editPrice"){
+      return (
+        <Icon
+          reverse
+          // style={styles.servicesIcon}
+          name="pencil-square"
+          type='font-awesome'
+          color='blue'
+          size={15}
+          onPress={() => this.changeUpdateModalState()}
+
+        />
+      )
+    }
+    else{
+      return (
+        <Icon
+          reverse
+          // style={styles.servicesIcon}
+          name="pencil-square"
+          type='font-awesome'
+          color='blue'
+          size={15}
+          onPress={() => this.props.navigation.navigate(nameScreen, { datosGasolinera: this.state.datosGasolinera, allServices: this.state.allServices })}
+
+        />
+      )
+    }
   }
 
   render() {
@@ -236,7 +291,7 @@ export default class ManagerGasStation extends React.Component {
             </Text>
             <View style={styles.fuelView}>
               {this.processTableAndPrint()}
-              {this.printIconEdit()}
+              {this.printIconEdit("editPrice")}
             </View>
           </View>
           <View style={styles.containerPrices}>
@@ -246,6 +301,52 @@ export default class ManagerGasStation extends React.Component {
             {this.printGraphic()}
           </View>
         </View>
+        <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalUpdateVisible}
+              onRequestClose={() => {
+                Alert.alert("Popup has been closed.");
+              }}>
+                <View style={styles.containerModal}>
+                  <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Select the fuel and type the price</Text>
+                    <Picker
+                      selectedValue={this.state.fuel}
+                      style={{ height: 200, width: 200}}
+                      onValueChange={(itemValue, itemIndex) => this.setFuel(itemValue)}
+                    >
+                      <Picker.Item label="Gas" value="Gas" />
+                      <Picker.Item label="Gas Premium" value="Gas Premium" />
+                      <Picker.Item label="Diesel" value="Diesel" />
+                      <Picker.Item label="Diesel Premium" value="Diesel Premium" />
+                    </Picker>
+                    <TextInput
+                      style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, textAlign:'center', fontSize:22 }}
+                      keyboardType={'numeric'}
+                      onChangeText={text => this.setPrice(text)}
+                      value={this.state.price}
+                    />
+                    <View style={styles.containerButtons}>
+                      <Button
+                        containerStyle={styles.button}
+                        title="Save"
+                        onPress={() => {
+                          this.updatePrice();
+                        }}
+                      />
+                      <Text>{"\t"}</Text>
+                      <Button
+                        containerStyle={styles.button}
+                        title="Cancel"
+                        onPress={() => {
+                          this.changeUpdateModalState();
+                        }}
+                      />
+                    </View>
+                  </View>
+                </View>
+          </Modal>
       </ScrollView>
     );
   }
@@ -282,6 +383,44 @@ const styles = StyleSheet.create({
   containerPrices: {
     backgroundColor: 'white',
     // flexDirection: 'row'
+  },
+  containerButtons:{
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  containerModal:{
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'transparent',
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modalText: {
+    color:'black'
+  },
+  button: {
+    backgroundColor: "yellow",
+    alignSelf: "center",
+    width: "40%",
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 50
   },
   mainTitle: {
     fontSize: 25,
