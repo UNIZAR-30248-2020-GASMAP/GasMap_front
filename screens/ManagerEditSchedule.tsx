@@ -8,6 +8,8 @@ import { Icon, Button } from 'react-native-elements';
 import { servicesListToIcon } from '../models/listServicesToIcon'
 import { Picker } from 'react-native';
 
+import { postSchedule } from '../drivers/connection'
+
 
 
 export default class ManagerEditSSchedule extends React.Component {
@@ -16,9 +18,9 @@ export default class ManagerEditSSchedule extends React.Component {
     super(props)
     this.state = {
       //idGasolinera: this.props.route.params.datosGasolinera.id_gas,
-      newDay: "",
-      newOpening: "",
-      newClosing: "",
+      newDay: "Mon",
+      newOpening: "00:00",
+      newClosing: "00:00",
     };
   }
 
@@ -65,13 +67,13 @@ export default class ManagerEditSSchedule extends React.Component {
             style={{ height: 20, width: 150, marginBottom: 22}}
             onValueChange={(itemValue, itemIndex) => this.setDay(itemValue)}
             >
-            <Picker.Item label="Monday" value="Monday" />
-            <Picker.Item label="Tuesday" value="Tuesday" />
-            <Picker.Item label="Wednesday" value="Wednesday" />
-            <Picker.Item label="Thursday" value="Thursday" />
-            <Picker.Item label="Friday" value="Friday" />
-            <Picker.Item label="Saturday" value="Saturday" />
-            <Picker.Item label="Sunday" value="Sunday" />
+            <Picker.Item label="Monday" value="Mon" />
+            <Picker.Item label="Tuesday" value="Tue" />
+            <Picker.Item label="Wednesday" value="Wed" />
+            <Picker.Item label="Thursday" value="Thu" />
+            <Picker.Item label="Friday" value="Fri" />
+            <Picker.Item label="Saturday" value="Sat" />
+            <Picker.Item label="Sunday" value="Sun" />
             </Picker>
 
             {/*Update opening scheduler*/}
@@ -184,8 +186,24 @@ export default class ManagerEditSSchedule extends React.Component {
     })
   }
   
-  saveSchedule() {
-    throw new Error('Method not implemented.');
+  
+  replaceTime = (day: string, opening: string, closing: string) => {
+    const exp = new RegExp(day + ": \\d\\d:\\d\\d\-\\d\\d:\\d\\d")
+    const newSchedule = this.props.route.params.datosGasolinera.time_gas
+    .replace(exp, day + ": " + opening + "-" + closing)
+    return newSchedule
+  }
+
+  async saveSchedule() {
+    await postSchedule(this.props.route.params.datosGasolinera.id_gas, 
+      this.replaceTime(this.state.newDay, this.state.newOpening, this.state.newClosing))
+      .then(data => {
+      if (data == undefined) {
+        Alert.alert('Connection error');
+      } else {
+        Alert.alert('New schedule updated');
+      }
+    })
   }
 }
 
