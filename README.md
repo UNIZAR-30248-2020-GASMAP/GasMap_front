@@ -13,3 +13,4 @@
 - yarn add react-test-renderer --dev
 - yarn add @types/jest
 - yarn add @types/react-test-renderer
+- yarn add @react-native-community/datetimepicker
