@@ -115,7 +115,9 @@ export const updatePriceMan = (data) => {
         })
         .catch(err => {
             console.log("Error login: " + err)
-            
+        })
+}
+
 //Post to the backend the new schedule
 export const postSchedule = (id: number, schedule: string) => {
     return axios
