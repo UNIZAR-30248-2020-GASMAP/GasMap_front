@@ -8,8 +8,8 @@ export default class Manual extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.mainTitle}>Manual de usuario</Text>
-        <Text style={styles.title}>Vista Principal</Text>
+        <Text style={styles.mainTitle}>User Manual</Text>
+        <Text style={styles.title}>Main Screen</Text>
         <Text style={styles.plain}>The main screen shows a map where some gas
           stations are displayed with a petrol pump icon like this one.
           <Image source={require('../assets/images/gas-station-icon.png')}/>
@@ -20,6 +20,17 @@ export default class Manual extends React.Component {
           validated through a form, wich requires an email and password.
           The email needs a valid format and the password has to be 12 characters
           minimum.
+        </Text>
+
+        <Text style={styles.title}>Gas station</Text>
+        <Text style={styles.plain}>This screen shows all of the important information
+        about the clicked gas station. It also allows the user to update the price of 
+        one fuel type if it has not been changed in the last 24 hours and if it does not variate
+        more than 5% of the last price. There is also a report button for the user to report
+        anything that looks wrong.
+        </Text>
+        <Text style={styles.plain}>On this screen is also shown a graph with the last 5
+        prices that a fuel type has.
         </Text>
       </View>
     );

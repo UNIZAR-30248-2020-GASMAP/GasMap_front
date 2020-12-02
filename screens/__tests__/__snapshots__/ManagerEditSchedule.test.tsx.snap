@@ -1,0 +1,962 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Correct Rendered 1`] = `
+<RCTScrollView>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Object {
+            "backgroundColor": "white",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "paddingBottom": "1%",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 25,
+                "fontWeight": "bold",
+                "paddingBottom": "1%",
+                "paddingTop": "5%",
+              },
+            ]
+          }
+        >
+          Your Gas Station is:
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 23,
+                "fontWeight": "900",
+                "paddingBottom": "5%",
+                "paddingLeft": "5%",
+                "paddingTop": "5%",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "overflow": "hidden",
+              }
+            }
+          >
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "transparent",
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <Text />
+              </View>
+            </View>
+          </View>
+        </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#fff",
+              },
+              Object {
+                "borderBottomColor": "black",
+                "borderBottomWidth": 1,
+              },
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Object {
+              "alignItems": "flex-start",
+              "backgroundColor": "yellow",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 23,
+                "fontWeight": "900",
+                "paddingBottom": "5%",
+                "paddingLeft": "5%",
+                "paddingTop": "5%",
+              },
+            ]
+          }
+        >
+          Services Scheduler
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "marginTop": 22,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 17,
+                "fontWeight": "bold",
+              },
+            ]
+          }
+        >
+          Select day
+        </Text>
+        <View
+          style={
+            Object {
+              "height": 20,
+              "marginBottom": 22,
+              "width": 150,
+            }
+          }
+        >
+          <RCTPicker
+            items={
+              Array [
+                Object {
+                  "label": "Monday",
+                  "textColor": undefined,
+                  "value": "Mon",
+                },
+                Object {
+                  "label": "Tuesday",
+                  "textColor": undefined,
+                  "value": "Tue",
+                },
+                Object {
+                  "label": "Wednesday",
+                  "textColor": undefined,
+                  "value": "Wed",
+                },
+                Object {
+                  "label": "Thursday",
+                  "textColor": undefined,
+                  "value": "Thu",
+                },
+                Object {
+                  "label": "Friday",
+                  "textColor": undefined,
+                  "value": "Fri",
+                },
+                Object {
+                  "label": "Saturday",
+                  "textColor": undefined,
+                  "value": "Sat",
+                },
+                Object {
+                  "label": "Sunday",
+                  "textColor": undefined,
+                  "value": "Sun",
+                },
+              ]
+            }
+            onChange={[Function]}
+            selectedIndex={0}
+            style={
+              Array [
+                Object {
+                  "height": 216,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 17,
+                "fontWeight": "bold",
+              },
+            ]
+          }
+        >
+          Select opening time
+        </Text>
+        <View
+          style={
+            Object {
+              "height": 20,
+              "marginBottom": 22,
+              "width": 150,
+            }
+          }
+        >
+          <RCTPicker
+            items={
+              Array [
+                Object {
+                  "label": "00:00",
+                  "textColor": undefined,
+                  "value": "00:00",
+                },
+                Object {
+                  "label": "00:30",
+                  "textColor": undefined,
+                  "value": "00:30",
+                },
+                Object {
+                  "label": "01:00",
+                  "textColor": undefined,
+                  "value": "01:00",
+                },
+                Object {
+                  "label": "01:30",
+                  "textColor": undefined,
+                  "value": "01:30",
+                },
+                Object {
+                  "label": "02:00",
+                  "textColor": undefined,
+                  "value": "02:00",
+                },
+                Object {
+                  "label": "02:30",
+                  "textColor": undefined,
+                  "value": "02:30",
+                },
+                Object {
+                  "label": "03:00",
+                  "textColor": undefined,
+                  "value": "03:00",
+                },
+                Object {
+                  "label": "03:30",
+                  "textColor": undefined,
+                  "value": "03:30",
+                },
+                Object {
+                  "label": "04:00",
+                  "textColor": undefined,
+                  "value": "04:00",
+                },
+                Object {
+                  "label": "04:30",
+                  "textColor": undefined,
+                  "value": "04:30",
+                },
+                Object {
+                  "label": "05:00",
+                  "textColor": undefined,
+                  "value": "05:00",
+                },
+                Object {
+                  "label": "05:30",
+                  "textColor": undefined,
+                  "value": "05:30",
+                },
+                Object {
+                  "label": "06:00",
+                  "textColor": undefined,
+                  "value": "06:00",
+                },
+                Object {
+                  "label": "06:30",
+                  "textColor": undefined,
+                  "value": "06:30",
+                },
+                Object {
+                  "label": "07:00",
+                  "textColor": undefined,
+                  "value": "07:00",
+                },
+                Object {
+                  "label": "07:30",
+                  "textColor": undefined,
+                  "value": "07:30",
+                },
+                Object {
+                  "label": "08:00",
+                  "textColor": undefined,
+                  "value": "08:00",
+                },
+                Object {
+                  "label": "08:30",
+                  "textColor": undefined,
+                  "value": "08:30",
+                },
+                Object {
+                  "label": "09:00",
+                  "textColor": undefined,
+                  "value": "09:00",
+                },
+                Object {
+                  "label": "09:30",
+                  "textColor": undefined,
+                  "value": "09:30",
+                },
+                Object {
+                  "label": "10:00",
+                  "textColor": undefined,
+                  "value": "10:00",
+                },
+                Object {
+                  "label": "10:30",
+                  "textColor": undefined,
+                  "value": "10:30",
+                },
+                Object {
+                  "label": "11:00",
+                  "textColor": undefined,
+                  "value": "11:00",
+                },
+                Object {
+                  "label": "11:30",
+                  "textColor": undefined,
+                  "value": "11:30",
+                },
+                Object {
+                  "label": "12:00",
+                  "textColor": undefined,
+                  "value": "12:00",
+                },
+                Object {
+                  "label": "12:30",
+                  "textColor": undefined,
+                  "value": "12:30",
+                },
+                Object {
+                  "label": "13:00",
+                  "textColor": undefined,
+                  "value": "13:00",
+                },
+                Object {
+                  "label": "13:30",
+                  "textColor": undefined,
+                  "value": "13:30",
+                },
+                Object {
+                  "label": "14:00",
+                  "textColor": undefined,
+                  "value": "14:00",
+                },
+                Object {
+                  "label": "14:30",
+                  "textColor": undefined,
+                  "value": "14:30",
+                },
+                Object {
+                  "label": "15:00",
+                  "textColor": undefined,
+                  "value": "15:00",
+                },
+                Object {
+                  "label": "15:30",
+                  "textColor": undefined,
+                  "value": "15:30",
+                },
+                Object {
+                  "label": "16:00",
+                  "textColor": undefined,
+                  "value": "16:00",
+                },
+                Object {
+                  "label": "16:30",
+                  "textColor": undefined,
+                  "value": "16:30",
+                },
+                Object {
+                  "label": "17:00",
+                  "textColor": undefined,
+                  "value": "17:00",
+                },
+                Object {
+                  "label": "17:30",
+                  "textColor": undefined,
+                  "value": "17:30",
+                },
+                Object {
+                  "label": "18:00",
+                  "textColor": undefined,
+                  "value": "18:00",
+                },
+                Object {
+                  "label": "18:30",
+                  "textColor": undefined,
+                  "value": "18:30",
+                },
+                Object {
+                  "label": "19:00",
+                  "textColor": undefined,
+                  "value": "19:00",
+                },
+                Object {
+                  "label": "19:30",
+                  "textColor": undefined,
+                  "value": "19:30",
+                },
+                Object {
+                  "label": "20:00",
+                  "textColor": undefined,
+                  "value": "20:00",
+                },
+                Object {
+                  "label": "20:30",
+                  "textColor": undefined,
+                  "value": "20:30",
+                },
+                Object {
+                  "label": "21:00",
+                  "textColor": undefined,
+                  "value": "21:00",
+                },
+                Object {
+                  "label": "21:30",
+                  "textColor": undefined,
+                  "value": "21:30",
+                },
+                Object {
+                  "label": "22:00",
+                  "textColor": undefined,
+                  "value": "22:00",
+                },
+                Object {
+                  "label": "22:30",
+                  "textColor": undefined,
+                  "value": "22:30",
+                },
+                Object {
+                  "label": "23:00",
+                  "textColor": undefined,
+                  "value": "23:00",
+                },
+                Object {
+                  "label": "23:30",
+                  "textColor": undefined,
+                  "value": "23:30",
+                },
+              ]
+            }
+            onChange={[Function]}
+            selectedIndex={0}
+            style={
+              Array [
+                Object {
+                  "height": 216,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Object {
+                "color": "black",
+                "fontSize": 17,
+                "fontWeight": "bold",
+              },
+            ]
+          }
+        >
+          Select closing time
+        </Text>
+        <View
+          style={
+            Object {
+              "height": 20,
+              "marginBottom": 22,
+              "width": 150,
+            }
+          }
+        >
+          <RCTPicker
+            items={
+              Array [
+                Object {
+                  "label": "00:00",
+                  "textColor": undefined,
+                  "value": "00:00",
+                },
+                Object {
+                  "label": "00:30",
+                  "textColor": undefined,
+                  "value": "00:30",
+                },
+                Object {
+                  "label": "01:00",
+                  "textColor": undefined,
+                  "value": "01:00",
+                },
+                Object {
+                  "label": "01:30",
+                  "textColor": undefined,
+                  "value": "01:30",
+                },
+                Object {
+                  "label": "02:00",
+                  "textColor": undefined,
+                  "value": "02:00",
+                },
+                Object {
+                  "label": "02:30",
+                  "textColor": undefined,
+                  "value": "02:30",
+                },
+                Object {
+                  "label": "03:00",
+                  "textColor": undefined,
+                  "value": "03:00",
+                },
+                Object {
+                  "label": "03:30",
+                  "textColor": undefined,
+                  "value": "03:30",
+                },
+                Object {
+                  "label": "04:00",
+                  "textColor": undefined,
+                  "value": "04:00",
+                },
+                Object {
+                  "label": "04:30",
+                  "textColor": undefined,
+                  "value": "04:30",
+                },
+                Object {
+                  "label": "05:00",
+                  "textColor": undefined,
+                  "value": "05:00",
+                },
+                Object {
+                  "label": "05:30",
+                  "textColor": undefined,
+                  "value": "05:30",
+                },
+                Object {
+                  "label": "06:00",
+                  "textColor": undefined,
+                  "value": "06:00",
+                },
+                Object {
+                  "label": "06:30",
+                  "textColor": undefined,
+                  "value": "06:30",
+                },
+                Object {
+                  "label": "07:00",
+                  "textColor": undefined,
+                  "value": "07:00",
+                },
+                Object {
+                  "label": "07:30",
+                  "textColor": undefined,
+                  "value": "07:30",
+                },
+                Object {
+                  "label": "08:00",
+                  "textColor": undefined,
+                  "value": "08:00",
+                },
+                Object {
+                  "label": "08:30",
+                  "textColor": undefined,
+                  "value": "08:30",
+                },
+                Object {
+                  "label": "09:00",
+                  "textColor": undefined,
+                  "value": "09:00",
+                },
+                Object {
+                  "label": "09:30",
+                  "textColor": undefined,
+                  "value": "09:30",
+                },
+                Object {
+                  "label": "10:00",
+                  "textColor": undefined,
+                  "value": "10:00",
+                },
+                Object {
+                  "label": "10:30",
+                  "textColor": undefined,
+                  "value": "10:30",
+                },
+                Object {
+                  "label": "11:00",
+                  "textColor": undefined,
+                  "value": "11:00",
+                },
+                Object {
+                  "label": "11:30",
+                  "textColor": undefined,
+                  "value": "11:30",
+                },
+                Object {
+                  "label": "12:00",
+                  "textColor": undefined,
+                  "value": "12:00",
+                },
+                Object {
+                  "label": "12:30",
+                  "textColor": undefined,
+                  "value": "12:30",
+                },
+                Object {
+                  "label": "13:00",
+                  "textColor": undefined,
+                  "value": "13:00",
+                },
+                Object {
+                  "label": "13:30",
+                  "textColor": undefined,
+                  "value": "13:30",
+                },
+                Object {
+                  "label": "14:00",
+                  "textColor": undefined,
+                  "value": "14:00",
+                },
+                Object {
+                  "label": "14:30",
+                  "textColor": undefined,
+                  "value": "14:30",
+                },
+                Object {
+                  "label": "15:00",
+                  "textColor": undefined,
+                  "value": "15:00",
+                },
+                Object {
+                  "label": "15:30",
+                  "textColor": undefined,
+                  "value": "15:30",
+                },
+                Object {
+                  "label": "16:00",
+                  "textColor": undefined,
+                  "value": "16:00",
+                },
+                Object {
+                  "label": "16:30",
+                  "textColor": undefined,
+                  "value": "16:30",
+                },
+                Object {
+                  "label": "17:00",
+                  "textColor": undefined,
+                  "value": "17:00",
+                },
+                Object {
+                  "label": "17:30",
+                  "textColor": undefined,
+                  "value": "17:30",
+                },
+                Object {
+                  "label": "18:00",
+                  "textColor": undefined,
+                  "value": "18:00",
+                },
+                Object {
+                  "label": "18:30",
+                  "textColor": undefined,
+                  "value": "18:30",
+                },
+                Object {
+                  "label": "19:00",
+                  "textColor": undefined,
+                  "value": "19:00",
+                },
+                Object {
+                  "label": "19:30",
+                  "textColor": undefined,
+                  "value": "19:30",
+                },
+                Object {
+                  "label": "20:00",
+                  "textColor": undefined,
+                  "value": "20:00",
+                },
+                Object {
+                  "label": "20:30",
+                  "textColor": undefined,
+                  "value": "20:30",
+                },
+                Object {
+                  "label": "21:00",
+                  "textColor": undefined,
+                  "value": "21:00",
+                },
+                Object {
+                  "label": "21:30",
+                  "textColor": undefined,
+                  "value": "21:30",
+                },
+                Object {
+                  "label": "22:00",
+                  "textColor": undefined,
+                  "value": "22:00",
+                },
+                Object {
+                  "label": "22:30",
+                  "textColor": undefined,
+                  "value": "22:30",
+                },
+                Object {
+                  "label": "23:00",
+                  "textColor": undefined,
+                  "value": "23:00",
+                },
+                Object {
+                  "label": "23:30",
+                  "textColor": undefined,
+                  "value": "23:30",
+                },
+              ]
+            }
+            onChange={[Function]}
+            selectedIndex={0}
+            style={
+              Array [
+                Object {
+                  "height": 216,
+                },
+                undefined,
+              ]
+            }
+          />
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#fff",
+              },
+              Object {
+                "backgroundColor": "white",
+                "flexDirection": "row",
+                "justifyContent": "center",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "center",
+                "backgroundColor": "yellow",
+                "borderRadius": 5,
+                "marginBottom": 50,
+                "marginTop": 50,
+                "overflow": "hidden",
+                "width": "40%",
+              }
+            }
+          >
+            <View
+              accessibilityRole="button"
+              accessibilityState={
+                Object {
+                  "busy": false,
+                  "disabled": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "#2089dc",
+                    "borderColor": "#2089dc",
+                    "borderRadius": 3,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "padding": 8,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Save
+                </Text>
+              </View>
+            </View>
+          </View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000",
+                },
+                undefined,
+              ]
+            }
+          >
+            	
+          </Text>
+          <View
+            style={
+              Object {
+                "alignSelf": "center",
+                "backgroundColor": "yellow",
+                "borderRadius": 5,
+                "marginBottom": 50,
+                "marginTop": 50,
+                "overflow": "hidden",
+                "width": "40%",
+              }
+            }
+          >
+            <View
+              accessibilityRole="button"
+              accessibilityState={
+                Object {
+                  "busy": false,
+                  "disabled": false,
+                }
+              }
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "#2089dc",
+                    "borderColor": "#2089dc",
+                    "borderRadius": 3,
+                    "borderWidth": 0,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "padding": 8,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "white",
+                      "fontSize": 18,
+                      "paddingVertical": 1,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Cancel
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
