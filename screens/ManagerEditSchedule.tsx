@@ -24,10 +24,6 @@ export default class ManagerEditSSchedule extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    
-  }
-
   render() {
     console.log("RENDER");
     return (
@@ -187,16 +183,16 @@ export default class ManagerEditSSchedule extends React.Component {
   }
   
   
-  replaceTime = (day: string, opening: string, closing: string) => {
+  replaceTime = (oldSchedule: string, day: string, opening: string, closing: string) => {
     const exp = new RegExp(day + ": \\d\\d:\\d\\d\-\\d\\d:\\d\\d")
-    const newSchedule = this.props.route.params.datosGasolinera.time_gas
-    .replace(exp, day + ": " + opening + "-" + closing)
+    const newSchedule = oldSchedule.replace(exp, day + ": " + opening + "-" + closing)
     return newSchedule
   }
 
   async saveSchedule() {
     await postSchedule(this.props.route.params.datosGasolinera.id_gas, 
-      this.replaceTime(this.state.newDay, this.state.newOpening, this.state.newClosing))
+      this.replaceTime(this.props.route.params.datosGasolinera.time_gas, 
+        this.state.newDay, this.state.newOpening, this.state.newClosing))
       .then(data => {
       if (data == undefined) {
         Alert.alert('Connection error');
