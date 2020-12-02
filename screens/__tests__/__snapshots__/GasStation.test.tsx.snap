@@ -495,7 +495,7 @@ exports[`Correct Rendered 1`] = `
                       Object {
                         "label": "Gas Premium",
                         "textColor": undefined,
-                        "value": "Gasp",
+                        "value": "Gas Premium",
                       },
                       Object {
                         "label": "Diesel",
@@ -505,7 +505,7 @@ exports[`Correct Rendered 1`] = `
                       Object {
                         "label": "Diesel Premium",
                         "textColor": undefined,
-                        "value": "Dieselp",
+                        "value": "Diesel Premium",
                       },
                     ]
                   }
@@ -523,7 +523,7 @@ exports[`Correct Rendered 1`] = `
               </View>
               <TextInput
                 allowFontScaling={true}
-                keyboardType="decimal-pad"
+                keyboardType="numeric"
                 onChangeText={[Function]}
                 rejectResponderTermination={true}
                 style={
