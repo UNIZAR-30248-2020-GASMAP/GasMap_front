@@ -15,10 +15,7 @@ import { DeviceEventEmitter } from 'react-native'
 
 
 
-//Contantes para grafica, updatear al leer de bd
-const dataX = [1, 2, 3, 4, 5];
-const data = [1.10, 1.12, 1.09, 1.05, 1.0];
-const contentInset = { top: 20, bottom: 20 }
+
 
 
 export default class ManagerGasStation extends React.Component {
@@ -31,7 +28,8 @@ export default class ManagerGasStation extends React.Component {
       horario: "",
       modalUpdateVisible: false,
       fuel: "Gas",
-      price: ""
+      price: "",
+      fuelType: "" //for ghart
     };
   }
 
@@ -202,38 +200,74 @@ export default class ManagerGasStation extends React.Component {
     }
   }
 
-  //Prints graphic with data read from state
-  printGraphic = () => {
-    return (
-      <View style={styles.pricesView}>
-        <YAxis
-          data={data}
-          contentInset={contentInset}
-          svg={{
-            fill: 'grey',
-            fontSize: 10,
-          }}
-          numberOfTicks={15}
-          formatLabel={(value) => `${value}€`}
-        />
-        <XAxis
-          style={{ marginHorizontal: -10 }}
-          data={[50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]}
-          formatLabel={(value, index) => `Day ${index}`}
-          contentInset={{ left: 10, right: 10 }}
-          svg={{ fontSize: 10, fill: 'black' }}
+  //Return array of last fuel prices
+  getLastFuelPrices(fuelType) {
+    //datos del fuel fuelType
+    if (this.state.datosGasolinera !== undefined) {
+      console.log("FUELS_GAS");
+      console.log(this.state.datosGasolinera.fuels_gas);
+      let data = this.state.datosGasolinera.fuels_gas.filter(index => {
+        // console.log("INDEX");
+        // console.log(index);
+            return (index.id_fuel==fuelType)
+      }
+      );
+      
+        console.log("getFUEL: ");
+        console.log(data[0].last_prices);
+        return data[0].last_prices;
+    }
+  }
 
-        />
-        <LineChart
-          style={{ flex: 1, marginLeft: 16 }}
-          data={data}
-          svg={{ stroke: 'rgb(134, 65, 244)' }}
-          contentInset={contentInset}
-        >
-          <Grid />
-        </LineChart>
-      </View>
-    )
+  //Prints graphic with last fuel prices
+  printGraphic = (fuelType) => {
+    //Contantes para grafica, updatear al leer de bd
+    const dataX = [1, 2, 3, 4, 5];
+    if (fuelType != "") {
+      // const data = [1.10, 1.12, 1.09, 1.05, 1.0];
+      console.log("FUEL TYPE")
+      console.log(fuelType)
+      const data = this.getLastFuelPrices(fuelType);
+      const contentInset = { top: 20, bottom: 20 }
+      return (
+        <View style={styles.pricesView}>
+          <YAxis
+            data={data}
+            contentInset={contentInset}
+            svg={{
+              fill: 'grey',
+              fontSize: 10,
+            }}
+            numberOfTicks={15}
+            formatLabel={(value) => `${value}€`}
+          />
+          <XAxis
+            style={{ marginHorizontal: -10 }}
+            data={[50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]}
+            formatLabel={(value, index) => `Day ${index}`}
+            contentInset={{ left: 10, right: 10 }}
+            svg={{ fontSize: 10, fill: 'black' }}
+
+          />
+          <LineChart
+            style={{ flex: 1, marginLeft: 16 }}
+            data={data}
+            svg={{ stroke: 'rgb(134, 65, 244)' }}
+            contentInset={contentInset}
+          >
+            <Grid />
+          </LineChart>
+        </View>
+      )
+    } else {
+
+    }
+  }
+
+  setFuelType = (fuelType) => {
+    this.setState({
+      fuelType: fuelType
+    })
   }
 
   changeUpdateModalState = () => {
@@ -361,7 +395,17 @@ export default class ManagerGasStation extends React.Component {
             <Text style={styles.plainBold}>
               {'Latest prices:'}
             </Text>
-            {this.printGraphic()}
+            <Picker
+              selectedValue={this.state.fuelType}
+              style={{ height: 50, width: 200 }}
+              onValueChange={(itemValue, itemIndex) => this.setFuelType(itemValue)}
+            >
+              <Picker.Item label="Gas" value="Gas" />
+              <Picker.Item label="Gas Premium" value="Gas Premium" />
+              <Picker.Item label="Diesel" value="Diesel" />
+              <Picker.Item label="Diesel Premium" value="Diesel Premium" />
+            </Picker>
+            {this.printGraphic(this.state.fuelType)}
           </View>
         </View>
         <Modal
@@ -525,7 +569,7 @@ const styles = StyleSheet.create({
   },
   fuelView: {
     backgroundColor: 'white',
-    alignItems:'center'
+    alignItems: 'center'
   },
   pricesView: {
     height: 300,
