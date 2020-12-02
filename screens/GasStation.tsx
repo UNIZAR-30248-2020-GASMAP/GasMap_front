@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
   },
   fuelView: {
     backgroundColor: 'white',
-    flexDirection: 'row'
+    alignItems:'center'
   },
   pricesView: {
     height: 300,

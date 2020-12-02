@@ -46,22 +46,22 @@ function byeMessage() {
 
 //Class that stores all data for a gas station
 class gas_station {
-    latitude_gas: number = 0;
-    longitude_gas: number = 0;
-    id: number = 0;
+  latitude_gas: number = 0;
+  longitude_gas: number = 0;
+  id: number = 0;
 
-    get_latitude(){
-      return this.latitude_gas;
-    }
-    get_longitude(){
-      return this.longitude_gas;
-    }
-    get_id(){
-      return this.id;
-    }
+  get_latitude() {
+    return this.latitude_gas;
+  }
+  get_longitude() {
+    return this.longitude_gas;
+  }
+  get_id() {
+    return this.id;
+  }
 }
 
-export default class MainScreen extends Component<{},{gasStations: Array<any>}> {
+export default class MainScreen extends Component<{}, { gasStations: Array<any> }> {
 
   constructor(props) {
     super(props)
@@ -79,27 +79,28 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
       this.setState({ gasStations: data })
       this.newCoords.latitude_gas = data[0].latitude_gas
       this.newCoords.longitude_gas = data[0].longitude_gas
-      this.newCoords.id=data[0].id_gas
+      this.newCoords.id = data[0].id_gas
     })
 
     {
-    useEffect(() => {
-      (async () => {
-        let { status } = await Location.requestPermissionsAsync();
-        if (status !== 'granted') {
-          setErrorMsg('Permission to access location was denied');
-        }
+      useEffect(() => {
+        (async () => {
+          let { status } = await Location.requestPermissionsAsync();
+          if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+          }
 
-        let location = await Location.getCurrentPositionAsync({});
-        console.log('Location: ' + JSON.stringify(location))
-      })();
-    }, []);
+          let location = await Location.getCurrentPositionAsync({});
+          console.log('Location: ' + JSON.stringify(location))
+        })();
+      }, []);
     }
   }
 
 
+
   render() {
-    
+
     return (
       <View style={styles.container}>
         <View style={styles.map_section}>
@@ -113,31 +114,32 @@ export default class MainScreen extends Component<{},{gasStations: Array<any>}> 
               latitudeDelta: 0.09,
               longitudeDelta: 0.035
             }}>
-
             {this.state.gasStations.map((station) => {
-                    return (
-                      <Marker
-                    
-                        coordinate={{
-                          latitude: station.latitude_gas,
-                          longitude: station.longitude_gas,
-                        }}
-                        onPress={
-                          ()=>{this.props.navigation.setParams({
-                            idGasolinera: station.id_gas
-                          });
-                          console.log(this.props.navigation);
-                          // <GasStation idGasolinera={station.id_gas}/>
-                          this.props.navigation.navigate("GasStation",{  idGasolinera: station.id_gas})
-                        }}
-                        >
+              return (
+                <Marker
+
+                  coordinate={{
+                    latitude: station.latitude_gas,
+                    longitude: station.longitude_gas,
+                  }}
+                  onPress={
+                    () => {
+                      this.props.navigation.setParams({
+                        idGasolinera: station.id_gas
+                      });
+                      console.log(this.props.navigation);
+                      // <GasStation idGasolinera={station.id_gas}/>
+                      this.props.navigation.navigate("GasStation", { idGasolinera: station.id_gas })
+                    }}
+                >
 
 
-                        <Image source={require('../assets/images/gas-station-icon.png')} />
+                  <Image source={require('../assets/images/gas-station-icon.png')} />
 
-                      </Marker>
-                    );
-                  })}
+                </Marker>
+              );
+            })}
+
           </MapView>
         </View>
         <View style={styles.info_section}>

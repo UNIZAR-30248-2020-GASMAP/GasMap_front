@@ -21,6 +21,7 @@ export default class ManagerEditSSchedule extends React.Component {
       newDay: "Mon",
       newOpening: "00:00",
       newClosing: "00:00",
+      actualSchedule: "hola",
     };
   }
 
@@ -162,6 +163,16 @@ export default class ManagerEditSSchedule extends React.Component {
                 }}
               />
             </View>
+            <Button
+                containerStyle={styles.button}
+                title="Save All"
+                onPress={() => {
+                  this.setState({ datosGasolinera: { ...this.props.route.params.datosGasolinera, time_gas: this.state.actualSchedule } });
+                  console.log("DATOS")
+                  console.log({ ...this.props.route.params.datosGasolinera, time_gas: this.state.actualSchedule})
+                  this.props.navigation.navigate("ManagerGasStation", {datosGasolinera: { ...this.props.route.params.datosGasolinera, time_gas: this.state.actualSchedule}});
+                }}
+              />
           </View>
         </View>
       </ScrollView>
@@ -202,6 +213,9 @@ export default class ManagerEditSSchedule extends React.Component {
         Alert.alert('Connection error');
       } else {
         Alert.alert('New schedule updated');
+        this.setState({actualSchedule: this.replaceTime(this.state.newDay, this.state.newOpening, this.state.newClosing)})
+        console.log("this.state.actualSchedule");
+        console.log(this.state.actualSchedule);
       }
     })
   }

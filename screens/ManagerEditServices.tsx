@@ -10,7 +10,7 @@ import { updateGasServices } from '../drivers/connection';
 import { ListItem, Avatar } from 'react-native-elements'
 
 import { servicesListToIcon } from '../models/listServicesToIcon'
-import { color } from 'react-native-reanimated';
+import {DeviceEventEmitter} from 'react-native'
 
 
 
@@ -137,12 +137,13 @@ export default class ManagerEditServices extends React.Component {
       console.log(data)
       if (data == undefined) {
         Alert.alert('Not update');
+        DeviceEventEmitter.emit('Listener data',  {})// ManagerGasStation.forceUpdate()
         this.props.navigation.navigate("ManagerGasStation");
       } else {
         Alert.alert('Update OK');
         //In newServices we havee the new services, if petition OK update the array
         this.setState({ datosGasolinera: { ...this.state.datosGasolinera, services_gas: this.state.newServices } });
-        this.props.navigation.navigate("ManagerGasStation");
+        this.props.navigation.navigate("ManagerGasStation", {datosGasolinera: { ...this.state.datosGasolinera, services_gas: this.state.newServices }});
       }
     })
   }

@@ -226,10 +226,6 @@ function managerLoginScreenStack({ navigation }) {
     <Stack.Navigator
       initialRouteName="ManagerLogin"
       screenOptions={{
-        // headerLeft: () =>
-        //   <BackDrawerStructureManager
-        //     navigationProps={navigation}
-        //   />,
         headerStyle: {
           backgroundColor: '#f4511e', //Set Header color
         },
@@ -257,6 +253,12 @@ function managerLoginScreenStack({ navigation }) {
             <LogOutDrawerStructure
               navigationProps={navigation}
             />
+            ,
+            headerLeft: () =>
+            <BackDrawerStructureManager
+              navigationProps={navigation}
+            />
+            
         }}
       />
       <Stack.Screen
