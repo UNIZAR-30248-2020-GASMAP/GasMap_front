@@ -348,8 +348,8 @@ exports[`Correct Rendered 1`] = `
                 "backgroundColor": "#fff",
               },
               Object {
+                "alignItems": "center",
                 "backgroundColor": "white",
-                "flexDirection": "row",
               },
             ]
           }
@@ -441,94 +441,48 @@ exports[`Correct Rendered 1`] = `
         </Text>
         <View
           style={
-            Array [
-              Object {
-                "backgroundColor": "#fff",
-              },
-              Object {
-                "backgroundColor": "white",
-                "flexDirection": "row",
-                "height": 300,
-                "width": "100%",
-              },
-            ]
+            Object {
+              "height": 50,
+              "width": 200,
+            }
           }
         >
-          <View
+          <RCTPicker
+            items={
+              Array [
+                Object {
+                  "label": "Gas",
+                  "textColor": undefined,
+                  "value": "Gas",
+                },
+                Object {
+                  "label": "Gas Premium",
+                  "textColor": undefined,
+                  "value": "Gas Premium",
+                },
+                Object {
+                  "label": "Diesel",
+                  "textColor": undefined,
+                  "value": "Diesel",
+                },
+                Object {
+                  "label": "Diesel Premium",
+                  "textColor": undefined,
+                  "value": "Diesel Premium",
+                },
+              ]
+            }
+            onChange={[Function]}
+            selectedIndex={0}
             style={
               Array [
+                Object {
+                  "height": 216,
+                },
                 undefined,
               ]
             }
-          >
-            <View
-              onLayout={[Function]}
-              style={
-                Object {
-                  "flexGrow": 1,
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": undefined,
-                    "fontSize": 10,
-                    "fontWeight": undefined,
-                    "opacity": 0,
-                  }
-                }
-              >
-                1.12€
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "marginHorizontal": -10,
-              }
-            }
-          >
-            <View
-              onLayout={[Function]}
-              style={
-                Object {
-                  "flexGrow": 1,
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "fontFamily": undefined,
-                    "fontSize": 10,
-                    "fontWeight": undefined,
-                    "opacity": 0,
-                  }
-                }
-              >
-                Day 0
-              </Text>
-            </View>
-          </View>
-          <View
-            style={
-              Object {
-                "flex": 1,
-                "marginLeft": 16,
-              }
-            }
-          >
-            <View
-              onLayout={[Function]}
-              style={
-                Object {
-                  "flex": 1,
-                }
-              }
-            />
-          </View>
+          />
         </View>
       </View>
     </View>

@@ -21,7 +21,6 @@ export default class ManagerEditSSchedule extends React.Component {
       newDay: "Mon",
       newOpening: "00:00",
       newClosing: "00:00",
-      actualSchedule: "hola",
     };
   }
 
@@ -143,11 +142,14 @@ export default class ManagerEditSSchedule extends React.Component {
               <Picker.Item label="23:00" value="23:00" /><Picker.Item label="23:30" value="23:30" />
             </Picker>
             <View style={styles.containerButtons}>
-              <Button
+            <Button
                 containerStyle={styles.button}
                 title="Save"
                 onPress={() => {
-                  this.saveSchedule()
+                  // const replacedTime = "Mon: 08:00-23:00\\nTue: 07:00-23:00\\nWed: 08:00-23:00\\nThu: 09:00-23:00\\nFri: 10:00-23:00\\nSat: 06:00-00:00\\nSun: 06:00-00:00\\n"
+                  const replacedTime = this.replaceTime(this.props.route.params.datosGasolinera.time_gas, 
+                    this.state.newDay, this.state.newOpening, this.state.newClosing)
+                  this.saveSchedule(replacedTime)
                 }}
               />
               <Text>{"\t"}</Text>
@@ -159,16 +161,6 @@ export default class ManagerEditSSchedule extends React.Component {
                 }}
               />
             </View>
-            <Button
-                containerStyle={styles.button}
-                title="Save All"
-                onPress={() => {
-                  this.setState({ datosGasolinera: { ...this.props.route.params.datosGasolinera, time_gas: this.state.actualSchedule } });
-                  console.log("DATOS")
-                  console.log({ ...this.props.route.params.datosGasolinera, time_gas: this.state.actualSchedule})
-                  this.props.navigation.navigate("ManagerGasStation", {datosGasolinera: { ...this.props.route.params.datosGasolinera, time_gas: this.state.actualSchedule}});
-                }}
-              />
           </View>
         </View>
       </ScrollView>
@@ -200,18 +192,16 @@ export default class ManagerEditSSchedule extends React.Component {
     return newSchedule
   }
 
-  async saveSchedule() {
+  async saveSchedule(replacedTime: string) {
     await postSchedule(this.props.route.params.datosGasolinera.id_gas, 
-      this.replaceTime(this.props.route.params.datosGasolinera.time_gas, 
-        this.state.newDay, this.state.newOpening, this.state.newClosing))
+      replacedTime)
       .then(data => {
       if (data == undefined) {
         Alert.alert('Connection error');
       } else {
         Alert.alert('New schedule updated');
-        this.setState({actualSchedule: this.replaceTime(this.state.newDay, this.state.newOpening, this.state.newClosing)})
-        console.log("this.state.actualSchedule");
-        console.log(this.state.actualSchedule);
+        this.setState({ datosGasolinera: { ...this.props.route.params.datosGasolinera, time_gas: replacedTime } });
+        this.props.navigation.navigate("ManagerGasStation", {datosGasolinera: { ...this.props.route.params.datosGasolinera, time_gas: replacedTime}});
       }
     })
   }

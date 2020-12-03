@@ -17,8 +17,11 @@ import { DeviceEventEmitter } from 'react-native'
 
 
 
+export const FORMAT_BACK = "FORMAT_BACK";
+export const FORMAT_EDIT = "FORMAT_EDIT";
 
 export default class ManagerGasStation extends React.Component {
+
 
   constructor(props: any) {
     super(props)
@@ -55,21 +58,17 @@ export default class ManagerGasStation extends React.Component {
 
   async componentDidUpdate() {
     console.log("COMPONENT DID UPDATE")
-    console.log("services this.props.route")
-    console.log(this.props.route.params.datosGasolinera.services_gas)
-    console.log("services this.state")
-    console.log(this.state.datosGasolinera.services_gas)
-    console.log("datosGasolinera this.props.route")
+    console.log("time_gas de this.props.route")
     console.log(this.props.route.params.datosGasolinera.time_gas)
-    console.log("datosGasolinera this.state")
+    console.log("time_gas de this.state")
     console.log(this.state.datosGasolinera.time_gas)
     if (this.props.route.params.datosGasolinera !== undefined) {
       if (this.state.datosGasolinera != this.props.route.params.datosGasolinera) {
         console.log("UPDATEado")
         this.setState({ datosGasolinera: this.props.route.params.datosGasolinera })
-        console.log("datosGasolinera despues setState")
-        console.log(this.state.datosGasolinera)
-        //Deberia renderizar fechas. pero no. Solo servicios
+        this.setState({ 
+          horario: this.prettySchedule(this.props.route.params.datosGasolinera.time_gas, FORMAT_EDIT) 
+        })
       }
     }
   }
@@ -88,10 +87,7 @@ export default class ManagerGasStation extends React.Component {
       this.setState({ allServices: data })
     })
     this.setState({
-      horario: JSON.stringify(this.state.datosGasolinera.time_gas)
-        .replace(/\\\\n/g, "\n").replace(/\"/g, "").replace(/ /g, "\t")
-        .replace(/Fri:/g, "Fri:  ").replace(/-/g, "\t-\t")
-        .replace(/Sat:/g, "Sat: ")
+      horario: this.prettySchedule(JSON.stringify(this.state.datosGasolinera.time_gas), FORMAT_BACK)
     })
   }
 
@@ -119,7 +115,6 @@ export default class ManagerGasStation extends React.Component {
   //Muestra en filas separando por '\\n'
   processTime() {
     let timeGas = this.state.datosGasolinera.time_gas;
-    // console.log(this.state.datosGasolinera.time_gas);
 
     if (timeGas !== undefined) {
       let arrayParts: Array<String> = timeGas.split('\\n');
@@ -337,8 +332,23 @@ export default class ManagerGasStation extends React.Component {
     }
   }
 
+  prettySchedule = (schedule: string, format: string) => {
+    if (format == FORMAT_BACK){
+      return( schedule
+      .replace(/\\\\n/g, "\n").replace(/\"/g, "").replace(/ /g, "\t")
+      .replace(/Fri:/g, "Fri:  ").replace(/-/g, "\t-\t")
+      .replace(/Sat:/g, "Sat: "))
+    } else if (format == FORMAT_EDIT) {
+      return( schedule
+      .replace(/\\n/g, "\n").replace(/\"/g, "").replace(/ /g, "\t")
+      .replace(/Fri:/g, "Fri:  ").replace(/-/g, "\t-\t")
+      .replace(/Sat:/g, "Sat: "))
+    } else {
+      return "FORMAT ERROR"
+    }
+  } 
+
   render() {
-    console.log("RENDER")
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -375,8 +385,10 @@ export default class ManagerGasStation extends React.Component {
               {'Schedule:'}
             </Text>
             <View style={styles.scheduleView}>
-              {/* {'Mon-Fri: 7:00-23:00\nSat-Sun: 9:00-15:00'} */}
               <Text style={styles.plain}>
+                {console.log("------------------")}
+                {console.log(this.state.horario)}
+                {console.log("------------------")}
                 {this.state.horario}
               </Text>
             </View>
@@ -460,11 +472,6 @@ export default class ManagerGasStation extends React.Component {
 
 
 }
-
-// class CustomIcon extends React.Component{
-
-
-// }
 
 const styles = StyleSheet.create({
   container: {
