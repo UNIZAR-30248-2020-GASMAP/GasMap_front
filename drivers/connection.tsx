@@ -136,3 +136,17 @@ export const postSchedule = (id: number, schedule: string) => {
             console.log("Error updating schedule: " + err)
         })
 }
+
+//Get all Gas Stations inside a certain radius (in km)
+export const getStationByMaxDistance = (coords, distance: number) => {
+    return axios
+        .get(`https://gps-testing-server.herokuapp.com/listByMaxDistance?lat=${coords.lat}&lon=${coords.lon}&range=${distance}`, {
+            headers: { "Content-type": "application/json" }
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+            console.log("Error getStationByMaxDistance : " + err)
+        })
+}

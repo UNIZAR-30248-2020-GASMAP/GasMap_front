@@ -1,87 +1,72 @@
 import React, { useState, useEffect, Component } from 'react';
 
-import { Text, Image, Platform } from 'react-native';
-import MapView, { Callout, Marker } from 'react-native-maps';
+import { Text, Image, Modal, Picker } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Alert, StyleSheet, Dimensions } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 
 import { View } from '../components/Themed';
 import { Icon, Button } from 'react-native-elements';
 
-import { getGasStations } from '../drivers/connection'
-import GasStation from './GasStation';
+import { getGasStations, getStationByMaxDistance } from '../drivers/connection'
 
 
-function welcomeMessage() {
-  Alert.alert(
-    'MENSAJE DE PRUEBA',
-    'otro mensaje',
-    [
-      {
-        text: 'Cancel',
-        style: 'cancel'
-      },
-      {
-        text: 'Ok'
-      }
-    ]
-  )
-}
-function byeMessage() {
-  Alert.alert(
-    'CHAU',
-    'ADIOOOOOOOOOOOOOS CERDO',
-    [
-      {
-        text: 'Cancel',
-        style: 'cancel'
-      },
-      {
-        text: 'Ok'
-      }
-    ]
-  )
+
+//Get the position of the user and request the gas stations in a range of 'distance' km
+function filterByDistance(distance: number){
+  Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 50})
+  .then( res => {
+    const coords = {
+      lat: res?.coords.latitude, 
+      lon: res?.coords.longitude 
+    }
+    //TODO: display this gas stations
+    getStationByMaxDistance(coords, distance)
+  }).catch( _err => {
+      Alert.alert("Connection error")
+  })
 }
 
-//Class that stores all data for a gas station
-class gas_station {
-  latitude_gas: number = 0;
-  longitude_gas: number = 0;
-  id: number = 0;
+//Main class with all the main screen handlers to display the information
+export default class MainScreen extends React.Component{
 
-  get_latitude() {
-    return this.latitude_gas;
-  }
-  get_longitude() {
-    return this.longitude_gas;
-  }
-  get_id() {
-    return this.id;
-  }
-}
-
-export default class MainScreen extends Component<{}, { gasStations: Array<any> }> {
-
-  constructor(props) {
+  constructor(props: any) {
     super(props)
     this.state = {
       gasStations: [],
+      modalDistanceVisible: false,
+      distanceFilter: "50",
     };
   }
 
-  async componentDidMount() {
-    const coords = {
-      lat: 41.786183, //location?.coords.latitude,
-      lon: -1.219913 //location?.coords.longitude
-    }
-    await getGasStations(coords).then(data => {
-      this.setState({ gasStations: data })
-      this.newCoords.latitude_gas = data[0].latitude_gas
-      this.newCoords.longitude_gas = data[0].longitude_gas
-      this.newCoords.id = data[0].id_gas
+  //Alternate the modalDistanceVisible value
+  changeDistanceModalState =() =>{
+    this.setState({
+      modalDistanceVisible: !this.state.modalDistanceVisible
     })
+  }
 
+  setDistanceFilter = (distance) => {
+    this.setState({
+      distanceFilter: distance
+    })
+  }
+  
+  async componentDidMount() {
+    Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 50})
+    .then( res => {
+      const coords = {
+        lat: res?.coords.latitude, 
+        lon: res?.coords.longitude 
+      }
+      getGasStations(coords).then(data => {
+        this.setState({ gasStations: data })
+      })
+    }).catch( _err => {
+        console.log("Location error")
+    })
+    
     {
       useEffect(() => {
         (async () => {
@@ -151,7 +136,52 @@ export default class MainScreen extends Component<{}, { gasStations: Array<any> 
                 type='font-awesome'
                 color='black'
                 size={30}
-                onPress={() => console.log('hello')} />
+                onPress={() => this.changeDistanceModalState()} />
+            </View>
+            <View style={styles.containerTop}>
+            
+            {/*Shows the popup to filter by distance */}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalDistanceVisible}
+              onRequestClose={() => {
+                this.changeDistanceModalState()
+              }}>
+                <View style={styles.containerModal}>
+                  <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Select the maximum distance in Km</Text>
+                    <Picker
+                      selectedValue={this.state.distanceFilter}
+                      style={{ height: 200, width: 200}}
+                      onValueChange={(itemValue, itemIndex) => this.setDistanceFilter(itemValue)}
+                    >
+                      <Picker.Item label="5" value="5" />
+                      <Picker.Item label="25" value="25" />
+                      <Picker.Item label="50" value="50" />
+                      <Picker.Item label="100" value="100" />
+                    </Picker>
+
+                    <View style={styles.containerButtons}>
+                      <Button
+                        containerStyle={styles.button}
+                        title="Save"
+                        onPress={() => {
+                          filterByDistance(this.state.distanceFilter);
+                        }}
+                      />
+                      <Text>{"\t"}</Text>
+                      <Button
+                        containerStyle={styles.button}
+                        title="Cancel"
+                        onPress={() => {
+                          this.changeDistanceModalState();
+                        }}
+                      />
+                    </View>
+                  </View>
+                </View>
+            </Modal>
             </View>
 
             <View style={styles.icon_container}>
@@ -236,12 +266,47 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "yellow",
     alignSelf: "center",
-    width: "80%",
+    width: "50%",
     borderRadius: 5,
     marginTop: 10,
   },
 
   mapStyle: {
     height: '100%',
-  }
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modalText: {
+    color:'black'
+  },
+  containerModal:{
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'transparent',
+    marginTop: 22
+  },
+  containerButtons:{
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  containerTop: {
+    alignItems: 'center',
+    paddingBottom: '5%',
+    backgroundColor: 'white'
+  },
 });
