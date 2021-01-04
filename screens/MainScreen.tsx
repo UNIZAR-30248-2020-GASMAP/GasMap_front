@@ -13,20 +13,7 @@ import { getGasStations, getStationByMaxDistance } from '../drivers/connection'
 
 
 
-//Get the position of the user and request the gas stations in a range of 'distance' km
-function filterByDistance(distance: number){
-  Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 50})
-  .then( res => {
-    const coords = {
-      lat: res?.coords.latitude, 
-      lon: res?.coords.longitude 
-    }
-    //TODO: display this gas stations
-    getStationByMaxDistance(coords, distance)
-  }).catch( _err => {
-      Alert.alert("Connection error")
-  })
-}
+
 
 //Main class with all the main screen handlers to display the information
 export default class MainScreen extends React.Component{
@@ -40,6 +27,25 @@ export default class MainScreen extends React.Component{
     };
   }
 
+  //Get the position of the user and request the gas stations in a range of 'distance' km
+  filterByDistance(distance: number){
+    Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 50})
+    .then( res => {
+      const coords = {
+        lat: res?.coords.latitude, 
+        lon: res?.coords.longitude 
+      }
+      //TODO: display this gas stations
+      getStationByMaxDistance(coords, distance).then( stations => {
+        this.setGasStations(stations)
+        return stations
+      })
+    }).catch( _err => {
+      Alert.alert("Connection error")
+      return null
+    })
+  }
+
   //Alternate the modalDistanceVisible value
   changeDistanceModalState =() =>{
     this.setState({
@@ -51,6 +57,12 @@ export default class MainScreen extends React.Component{
     this.setState({
       distanceFilter: distance
     })
+  }
+
+  setGasStations = (stations) =>{
+    console.log("setStations")
+    console.log(stations)
+    this.setState({ gasStations: stations })
   }
   
   async componentDidMount() {
@@ -81,8 +93,6 @@ export default class MainScreen extends React.Component{
       }, []);
     }
   }
-
-
 
   render() {
 
@@ -167,7 +177,8 @@ export default class MainScreen extends React.Component{
                         containerStyle={styles.button}
                         title="Save"
                         onPress={() => {
-                          filterByDistance(this.state.distanceFilter);
+                          this.changeDistanceModalState();
+                          this.filterByDistance(this.state.distanceFilter);
                         }}
                       />
                       <Text>{"\t"}</Text>
