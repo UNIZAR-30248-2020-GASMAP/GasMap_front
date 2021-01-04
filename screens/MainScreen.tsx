@@ -60,9 +60,13 @@ export default class MainScreen extends React.Component{
   }
 
   setGasStations = (stations) =>{
-    console.log("setStations")
-    console.log(stations)
-    this.setState({ gasStations: stations })
+    if (stations != null) {
+      console.log("setStations")
+      console.log(stations)
+      this.setState({ gasStations: stations })  
+    } else {
+      console.log("cannot set gas stations because value is null")
+    }
   }
   
   async componentDidMount() {
