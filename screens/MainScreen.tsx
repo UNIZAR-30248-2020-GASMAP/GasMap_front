@@ -9,7 +9,7 @@ import * as Location from 'expo-location';
 import { View } from '../components/Themed';
 import { Icon, Button } from 'react-native-elements';
 
-import { getGasStations, getStationByMaxDistance } from '../drivers/connection'
+import { getGasStations, getStationByMaxDistance, getStationByServices } from '../drivers/connection'
 
 
 
@@ -23,7 +23,9 @@ export default class MainScreen extends React.Component{
     this.state = {
       gasStations: [],
       modalDistanceVisible: false,
+      modalServicesVisible: false,
       distanceFilter: "50",
+      serviceFilter: "",
       lat: 41.656064,
       lon: -0.879280,
     };
@@ -37,8 +39,27 @@ export default class MainScreen extends React.Component{
         lat: res?.coords.latitude, 
         lon: res?.coords.longitude 
       }
-      //TODO: display this gas stations
       getStationByMaxDistance(coords, distance).then( stations => {
+        this.setGasStations(stations)
+        return stations
+      })
+    }).catch( _err => {
+      Alert.alert("Connection error")
+      return null
+    })
+  }
+
+  //Get the position of the user and request the gas stations with the "serviceFilter" service
+  filterByServices(serviceFilter: any) {
+    Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 50})
+    .then( res => {
+      const coords = {
+        lat: res?.coords.latitude, 
+        lon: res?.coords.longitude 
+      }
+      console.log("SERVICIOS----------> ")
+    console.log(serviceFilter)
+      getStationByServices(coords, serviceFilter).then( stations => {
         this.setGasStations(stations)
         return stations
       })
@@ -55,16 +76,27 @@ export default class MainScreen extends React.Component{
     })
   }
 
+  //Alternate the modalServicesVisible value
+  changeServicesModalState =() =>{
+    this.setState({
+      modalServicesVisible: !this.state.modalServicesVisible
+    })
+  }
+
   setDistanceFilter = (distance) => {
     this.setState({
       distanceFilter: distance
     })
   }
 
+  setServiceFilter = (service) => {
+    this.setState({
+      serviceFilter: service
+    })
+  }
+
   setGasStations = (stations) =>{
     if (stations != null) {
-      console.log("setStations")
-      console.log(stations)
       this.setState({ gasStations: stations })  
     } else {
       console.log("cannot set gas stations because value is null")
@@ -220,7 +252,57 @@ export default class MainScreen extends React.Component{
                 type='font-awesome'
                 color='black'
                 size={30}
-                onPress={() => console.log('hello3')} />
+                onPress={() => this.changeServicesModalState()} />
+            </View>
+
+            <View style={styles.containerTop}>
+            {/*Shows the popup to filter by services */}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalServicesVisible}
+              onRequestClose={() => {
+                this.changeServicesModalState()
+              }}>
+                <View style={styles.containerModal}>
+                  <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Select the service to filter</Text>
+                    <Picker
+                      selectedValue={this.state.serviceFilter}
+                      style={{ height: 200, width: 200}}
+                      onValueChange={(itemValue, itemIndex) => this.setServiceFilter(itemValue)}
+                    >
+                      <Picker.Item label="Taller" value="taller" />
+                      <Picker.Item label="Minusvalidos" value="minusvalidos" />
+                      <Picker.Item label="Aire" value="aire" />
+                      <Picker.Item label="Restaurante" value="restaurante" />
+                      <Picker.Item label="Duchas" value="duchas" />
+                      <Picker.Item label="Tarjeta" value="tarjeta" />
+                      <Picker.Item label="Cama" value="cama" />
+                      <Picker.Item label="Agua" value="agua" />
+                    </Picker>
+
+                    <View style={styles.containerButtons}>
+                      <Button
+                        containerStyle={styles.button}
+                        title="Save"
+                        onPress={() => {
+                          this.changeServicesModalState();
+                          this.filterByServices(this.state.serviceFilter);
+                        }}
+                      />
+                      <Text>{"\t"}</Text>
+                      <Button
+                        containerStyle={styles.button}
+                        title="Cancel"
+                        onPress={() => {
+                          this.changeServicesModalState();
+                        }}
+                      />
+                    </View>
+                  </View>
+                </View>
+            </Modal>
             </View>
 
             <View style={styles.icon_container}>
@@ -254,6 +336,7 @@ export default class MainScreen extends React.Component{
       </View>
     )
   }
+  
 }
 
 

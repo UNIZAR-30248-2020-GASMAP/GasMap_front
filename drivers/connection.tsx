@@ -150,3 +150,23 @@ export const getStationByMaxDistance = (coords, distance: number) => {
             console.log("Error getStationByMaxDistance : " + err)
         })
 }
+
+//Get the Gas Stations with the "serviceFilter" service
+export const getStationByServices = (coords, serviceFilter: any) => {
+    return axios
+        .post(`https://gps-testing-server.herokuapp.com/getGasFiltered`, null,
+        {
+            headers: { "Content-type": "application/json" },
+            params: {
+                lat: coords.lat,
+                lon: coords.lon,
+                new_services: serviceFilter,
+            }
+        })
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+            console.log("Error filtering by services: " + err)
+        })
+}
