@@ -57,8 +57,6 @@ export default class MainScreen extends React.Component{
         lat: res?.coords.latitude, 
         lon: res?.coords.longitude 
       }
-      console.log("SERVICIOS----------> ")
-    console.log(serviceFilter)
       getStationByServices(coords, serviceFilter).then( stations => {
         this.setGasStations(stations)
         return stations
@@ -330,7 +328,23 @@ export default class MainScreen extends React.Component{
           <Button
             containerStyle={styles.button}
             title="Remove filters"
-            onPress={() => Alert.alert("Filters remove.")}
+            onPress={() => 
+              Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 50})
+              .then( res => {
+                const coords = {
+                  lat: res?.coords.latitude, 
+                  lon: res?.coords.longitude 
+                }
+                this.setState({lat: res?.coords.latitude,
+                              lon: res?.coords.longitude})
+                getGasStations(coords).then(data => {
+                  this.setState({ gasStations: data })
+                })
+                Alert.alert("Filters removed")
+              }).catch( _err => {
+                  console.log("Location error")
+              })
+            }
           />
         </View>
       </View>
