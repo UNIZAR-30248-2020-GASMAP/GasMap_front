@@ -36,6 +36,14 @@ export default class Manual extends React.Component {
           If GPS is not enabled, nothing will show up.
           </Text>
 
+          <Text style={styles.title}>Filter by service</Text>
+          <Text style={styles.plain}>This filter allows the user to display only the gas stations
+          that matches with the service requested.
+          </Text>
+          <Text style={styles.plain}>
+          If GPS is not enabled, nothing will show up.
+          </Text>
+
 
           <Text style={styles.mainTitle}>Manager Manual</Text>
 
