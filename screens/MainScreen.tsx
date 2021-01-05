@@ -24,6 +24,8 @@ export default class MainScreen extends React.Component{
       gasStations: [],
       modalDistanceVisible: false,
       distanceFilter: "50",
+      lat: 41.656064,
+      lon: -0.879280,
     };
   }
 
@@ -76,6 +78,8 @@ export default class MainScreen extends React.Component{
         lat: res?.coords.latitude, 
         lon: res?.coords.longitude 
       }
+      this.setState({lat: res?.coords.latitude,
+                     lon: res?.coords.longitude})
       getGasStations(coords).then(data => {
         this.setState({ gasStations: data })
       })
@@ -108,8 +112,8 @@ export default class MainScreen extends React.Component{
             showsUserLocation={true}
             showsMyLocationButton={true}
             region={{
-              latitude: 41.653915,
-              longitude: -0.884258,
+              latitude: this.state.lat,
+              longitude: this.state.lon,
               latitudeDelta: 0.09,
               longitudeDelta: 0.035
             }}>
@@ -226,7 +230,18 @@ export default class MainScreen extends React.Component{
                 type='material'
                 color='black'
                 size={30}
-                onPress={() => console.log('hello2')} />
+                onPress={() => 
+                  Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 50})
+                  .then( res => {
+                    const coords = {
+                      lat: res?.coords.latitude, 
+                      lon: res?.coords.longitude 
+                    }
+                    this.setState({lat: res?.coords.latitude,
+                                  lon: res?.coords.longitude})
+                  }).catch( _err => {
+                      console.log("Location error")
+                })} />
             </View>
           </View>
 
