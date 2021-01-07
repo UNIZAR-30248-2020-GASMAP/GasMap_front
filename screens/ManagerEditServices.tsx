@@ -42,10 +42,6 @@ export default class ManagerEditServices extends React.Component {
   }
 
   toggleSwitch = (service_name) => {
-    console.log(!this.state.switch1Value)
-
-    console.log("SERVICE NAME")
-    console.log(service_name)
     //Actual value
     let value = this.state.newServices.includes(service_name)
     // new value
@@ -55,15 +51,11 @@ export default class ManagerEditServices extends React.Component {
     if (newValue) {
       //   //If true add to array list, as default is a true, when click it first removes, so wont duplicate
       //   //add service
-      console.log("arrayAux")
-      console.log(this.state.newServices.concat(service_name))
       this.setState({ newServices: [...this.state.newServices, service_name] })
       //   console.log(this.state);
     } else {
       //   //If false, delete from array list
       let arrayAux = this.state.newServices.filter(item => item !== service_name)
-      console.log("arrayAux")
-      console.log(arrayAux)
       this.setState({ newServices: arrayAux })
       //   console.log(this.state);
     }
@@ -77,12 +69,6 @@ export default class ManagerEditServices extends React.Component {
   showServices = () => {
     //MOSTRAR TODOS LOS SERVICIOS POSIBLES
 
-    console.log("Show OUR services");
-    console.log(JSON.stringify(this.state.datosGasolinera.services_gas));
-    console.log("All services: ");
-    console.log(this.state.allServices);
-    console.log("New services: ");
-    console.log(this.state.newServices);
     // let listServices = this.state.datosGasolinera.services_gas;
     let listServices = this.state.allServices;
     if (listServices !== undefined) {
@@ -128,10 +114,6 @@ export default class ManagerEditServices extends React.Component {
 
   updateGasServices = async () => {
     // Alert.alert('En update');
-    Alert.alert(JSON.stringify(this.state.newServices));
-    console.log("this.state.datosGasolinera");
-    console.log(this.state.datosGasolinera);
-    Alert.alert(JSON.stringify(this.state.newServices));
     await updateGasServices(this.state.datosGasolinera.id_gas, this.state.newServices).then(data => {
       console.log("DATA UPDATE")
       console.log(data)

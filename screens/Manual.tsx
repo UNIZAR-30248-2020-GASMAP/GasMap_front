@@ -63,6 +63,17 @@ export default class Manual extends React.Component {
           <Text style={styles.plain}>You can edit the fuel price of your gas station by selecting
           the fuel and the new price and it will be updated.
           </Text>
+
+          <Text style={styles.title}>Manager services edit</Text>
+          <Text style={styles.plain}>You can edit the services of your gas station by selecting
+          the switch for every desired service to be added/removed and it will be updated.
+          </Text>
+
+          <Text style={styles.title}>Manager add new fuel type</Text>
+          <Text style={styles.plain}>You can add a new type of fuel to your gas station by trying to update
+          a fuel type, and selecting one that was not already on your gas station, writing 
+          the desired price, and it will be updated.
+          </Text>
         </View>
       </ScrollView>
     );
